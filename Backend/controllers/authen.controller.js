@@ -1,4 +1,4 @@
-const collection = require("../models/mongodb_login.js")
+const collection = require("../models/mongodb_authen.js")
 
 exports.index = (req, res) => {
     res.render("login")

@@ -3,8 +3,8 @@ const app = express()
 const path = require("path")
 const hbs = require("hbs")
 const mongoose = require("mongoose")
-const collection = require("../models/mongodb_login.js")
-
+const collection = require("../models/mongodb_authen.js")
+const dbConfig = require("../config/authenDB.config")
 const viewPath = path.join('../Frontend/views')
 
 const cors = require('cors')
@@ -16,6 +16,14 @@ app.use(express.urlencoded({extended : false}))
 
 app.use(cors())
 require('../routes/routes.route')(app)
+
+mongoose.Promise = global.Promise
+mongoose.connect(dbConfig.url).then(() => {
+    console.log('Connect to MongoDB')
+}).catch(err=>{
+    console.log('Cannot Connect to MongoDB')
+    process.exit()
+})
 
 app.listen(3000, ()=>{
     console.log("Port connected")
