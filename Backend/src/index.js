@@ -6,13 +6,21 @@ const mongoose = require("mongoose")
 const collection = require("../models/mongodb_authen.js")
 const dbConfig = require("../config/authenDB.config")
 const viewPath = path.join('../Frontend/views')
-
+const session = require('express-session');
 const cors = require('cors')
 
 app.use(express.json())
+app.use(express.urlencoded({extended : false}))
+
 app.set("view engine", "hbs")
 app.set("views", viewPath)
-app.use(express.urlencoded({extended : false}))
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 app.use(cors())
 require('../routes/routes.route')(app)
