@@ -10,7 +10,7 @@ app.use(session({
     cookie: { secure: true }
   }))
 
-exports.index = (req, res) => {
+exports.login = (req, res) => {
     res.render("login")
 }
 
@@ -33,8 +33,12 @@ exports.inituser = async (req, res) => {
     try{
         const check = await collection.findOne({email: req.body.email})
 
+        if(check.username === req.body.name){
+            res.send("Already used this username, please change.")
+        }
+
         if(check.email === req.body.email){
-            res.send("You already signed up with this email.")
+            res.send("Already signed up with this email, please change.")
         }
         
     }catch{
@@ -47,13 +51,12 @@ exports.inituser = async (req, res) => {
 
 }
 
-exports.login = async (req, res) => {
+exports.initlogin = async (req, res) => {
 
     try{
         const check = await collection.findOne({email: req.body.email})
 
         if(check.password === req.body.password){
-           
             console.log(req.body.email, "has logged in.")
             console.log(check.username)
             res.render("home", {username: check.username})
