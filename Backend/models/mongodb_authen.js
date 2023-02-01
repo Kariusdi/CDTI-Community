@@ -1,10 +1,13 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
-const LoginSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 
-    username:{
+    name:{
         type: String,
-        require: true
+        require: true,
+        // lowercase: true,
+        // trim: true
     },
     email:{
         type: String,
@@ -17,5 +20,27 @@ const LoginSchema = new mongoose.Schema({
 
 })
 
-const collection = new mongoose.model("UserAccount", LoginSchema)
+UserSchema.pre('save', function(next) {
+    if(this.isModified('password')){
+        bcrypt.hash(this.password, 8, (err, hash) => {
+            if(err) return next(err)
+            this.password = hash
+            next()
+        })
+    }
+})
+
+UserSchema.methods.comparePassword = async function (password) {
+    
+    if(!password) throw new Error('Password is missing, can not compare')
+
+    try {
+        const result = await bcrypt.compare(password, this.password)
+        return result
+    } catch (error) {
+        console.log('Error while comparing password!', error.message)
+    }
+}
+
+const collection = new mongoose.model("UserAccount", UserSchema)
 module.exports = collection

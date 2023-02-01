@@ -15,7 +15,7 @@ exports.home = async (req, res) => {
 
     if(session.userid){
         const check = await collection.findOne({email: session.userid})
-        res.render("home", {username: check.username})
+        res.render("home", {username: check.name})
     }else
     res.render("login")
     
@@ -24,30 +24,27 @@ exports.home = async (req, res) => {
 
 exports.inituser = async (req, res) => {
 
-    const data = {
-        username: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    }
+    const data = {name, email, password } = req.body;
+    // console.log(name.toLowerCase(), email, password)
 
     try{
-        const check = await collection.findOne({email: req.body.email})
-
-        if(check.username === req.body.name){
-            res.send("Already used this username, please change.")
-        }
-
-        if(check.email === req.body.email){
-            res.send("Already signed up with this email, please change.")
+        const check = await collection.findOne({email: email})
+        if(check == null){
+            const user = await collection({
+                name,
+                email,
+                password,})
+            await user.save()    
+        
+            console.log(data.email, "has signed up.")
+            res.render("login")
+        }else{
+            res.send("Username or password has been used, please try again.")
         }
         
     }catch{
-        await collection.insertMany([data])
-        console.log(data.email, "has signed up.")
-        res.render("login")
+        res.send("Error session.")
     }
-
-    
 
 }
 
@@ -56,21 +53,23 @@ exports.initlogin = async (req, res) => {
     try{
         const check = await collection.findOne({email: req.body.email})
 
-        if(check.password === req.body.password){
+        const isMatch = await check.comparePassword(req.body.password);
+
+        if(isMatch && check.email == req.body.email){
             session = req.session
             session.userid = req.body.email
             console.log(req.body.email, "has logged in.")
-            console.log(check.username)
+            // console.log(check.name)
             console.log(req.session)
-            res.render("home", {username: check.username})
+            res.render("home", {username: check.name})
         }else{
-            res.send("Invalid, username or password.")
+            res.send("Email or password is incorrect, please try again.")
         }
 
         
     }
     catch{
-        res.send("Please sign-up")
+        res.send("Invalid, username or password.")
     }
 
 }
