@@ -1,54 +1,65 @@
-const express = require("express");
-const session = require("express-session");
-const mongoose = require("mongoose");
-const redis = require('connect-redis');
-const app = express();
+const express = require("express")
+const path = require("path")
+const hbs = require("hbs")
+const mongoose = require("mongoose")
+const dbConfig = require("../config/authenDB.config")
+const viewPath = path.join("../Frontend/views")
+const sessions = require("express-session");
+const cors = require("cors")
+const cookieParser = require("cookie-parser")
 
-const PORT = process.env.PORT || 8080;
+const app = express()
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "hbs")
+app.set("views", viewPath)
 
-app.set('view engine', 'ejs');
+const oneDay = 1000 * 60 * 60 * 24
+app.use(sessions({
+  secret: '1909802728861',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    maxAge: oneDay 
+  }
+}))
 
-const redisClient = require('redis').createClient({
-    legacyMode:true
-});
-redisClient.connect().catch(console.log);
+app.use(express.json())
+app.use(express.urlencoded({extended : true}))
 
-const RedisStore = redis(session);
+app.use(express.static(__dirname))
 
-app.use(
-    session({
-        store:new RedisStore({client:redisClient}),
-        secret: "my_session_secret", 
-        resave: false, 
-        saveUninitialized: false, 
-        cookie:{
-            // Only set to true if you are using HTTPS.
-            // Secure Set-Cookie attribute.
-            secure:true, 
-            // Only set to true if you are using HTTPS.
-            httpOnly:false,
-            // Session max age in milliseconds. (1 min)
-            // Calculates the Expires Set-Cookie attribute
-            maxAge:60000
-        } 
-    })
-);
+app.use(cookieParser())
 
-app.get("/",(req,res) => {
-    return res.json({
-        "message": "Hello World!",
-        "success":true
-    })
+var session;
+username = "Karn"
+password = "1234"
+
+app.get('/home', (req, res) => {
+    // session = req.session;
+    console.log(req.session.userid)
+    if(req.session.id){
+        res.render("home")
+    }else{
+        
+        res.render("login")
+    }
 })
 
-app.listen(PORT, async () => {
-    mongoose.connect("mongodb://localhost:27017/session_app", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }).then(
-        () => console.log(`App listening on port ${PORT}`)
-    ).catch(console.error);    
-});
+app.post('/', (req, res) => {
+    if(req.body.email == username && req.body.password == password){
+        session = req.session
+        session.id = req.body.email
+        console.log(session.userid)
+        res.render("home")
+    }else{
+        res.send("Invalid")
+    }
+})
+
+app.get('/logout', function(req, res) {
+  
+  });
+
+app.listen(3000, ()=>{
+    console.log("Port connected")
+})

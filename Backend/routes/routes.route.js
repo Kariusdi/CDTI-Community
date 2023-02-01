@@ -7,5 +7,6 @@ module.exports = (app) => {
     app.get('/', authen.home)
     app.post('/signup', authen.inituser)
     app.get('/signup', authen.signup)
+    app.get('/logout', authen.logout)
     app.get('*', error.error)
 }

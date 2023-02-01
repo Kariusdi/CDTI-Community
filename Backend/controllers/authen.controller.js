@@ -1,14 +1,5 @@
 const collection = require("../models/mongodb_authen.js")
-const express = require("express")
-const app = express()
-const session = require('express-session');
-
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-  }))
+var session;
 
 exports.login = (req, res) => {
     res.render("login")
@@ -18,8 +9,17 @@ exports.signup = (req, res) => {
     res.render("signup")
 }
 
-exports.home = (req, res) => {
-    res.render("home", {userId: req.session.userId})
+exports.home = async (req, res) => {
+
+    session = req.session
+
+    if(session.userid){
+        const check = await collection.findOne({email: session.userid})
+        res.render("home", {username: check.username})
+    }else
+    res.render("login")
+    
+    
 }
 
 exports.inituser = async (req, res) => {
@@ -57,11 +57,14 @@ exports.initlogin = async (req, res) => {
         const check = await collection.findOne({email: req.body.email})
 
         if(check.password === req.body.password){
+            session = req.session
+            session.userid = req.body.email
             console.log(req.body.email, "has logged in.")
             console.log(check.username)
+            console.log(req.session)
             res.render("home", {username: check.username})
         }else{
-            res.send("wrong password, please try again")
+            res.send("Invalid, username or password.")
         }
 
         
@@ -70,4 +73,10 @@ exports.initlogin = async (req, res) => {
         res.send("Please sign-up")
     }
 
+}
+
+exports.logout = (req, res) => {
+    req.session.destroy()
+    console.log(req.session)
+    res.redirect('/')
 }
