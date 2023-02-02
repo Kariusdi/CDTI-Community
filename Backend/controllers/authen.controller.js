@@ -19,7 +19,6 @@ exports.home = async (req, res) => {
     }else
     res.render("login")
     
-    
 }
 
 exports.inituser = async (req, res) => {
@@ -29,7 +28,7 @@ exports.inituser = async (req, res) => {
 
     try{
         const check = await collection.findOne({email: email})
-        if(check == null){
+        if(check == null && name != '' && email != '' && password != ''){
             const user = await collection({
                 name,
                 email,
@@ -38,8 +37,13 @@ exports.inituser = async (req, res) => {
         
             console.log(data.email, "has signed up.")
             res.render("login")
-        }else{
-            res.send("Username or password has been used, please try again.")
+
+        }else if(name == '' || email == '' || password == ''){
+            res.render("signup", {error_msg: "You may be missing some information, please fill up all."})
+            // res.send("You may be missing some information, please fill up all.")
+        }
+        else{
+            res.render("signup", {error_msg: "Username or password has been used, please try again."})
         }
         
     }catch{
@@ -61,20 +65,22 @@ exports.initlogin = async (req, res) => {
             console.log(req.body.email, "has logged in.")
             // console.log(check.name)
             console.log(req.session)
+            // console.log(req.session.cookie._expires.toString())
             res.render("home", {username: check.name, userid: session.userid})
         }else{
-            res.send("Email or password is incorrect, please try again.")
+            res.render("login", {error_msg: "Email or password is incorrect, please try again."})
         }
 
         
     }
     catch{
-        res.send("Invalid, username or password.")
+        res.render("login", {error_msg: "Invalid, username or password."})
     }
 
 }
 
 exports.logout = (req, res) => {
+    // await collection("useraccounts").insertOne(req.session.cookie._expires.toString())
     req.session.destroy()
     console.log(req.session)
     res.redirect('/')
