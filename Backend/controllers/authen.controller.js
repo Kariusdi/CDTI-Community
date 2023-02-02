@@ -15,7 +15,7 @@ exports.home = async (req, res) => {
 
     if(session.userid){
         const check = await collection.findOne({email: session.userid})
-        res.render("home", {username: check.name})
+        res.render("home", {username: check.name, userid: session.userid})
     }else
     res.render("login")
     
@@ -61,7 +61,7 @@ exports.initlogin = async (req, res) => {
             console.log(req.body.email, "has logged in.")
             // console.log(check.name)
             console.log(req.session)
-            res.render("home", {username: check.name})
+            res.render("home", {username: check.name, userid: session.userid})
         }else{
             res.send("Email or password is incorrect, please try again.")
         }

@@ -3,8 +3,8 @@ module.exports = (app) => {
     const pagenotfound = require("../controllers/404.controller")
 
     app.get('/login', authen.login)
-    app.post('/', authen.initlogin)
     app.get('/', authen.home)
+    app.post('/', authen.initlogin)
     app.post('/signup', authen.inituser)
     app.get('/signup', authen.signup)
     app.get('/logout', authen.logout)
