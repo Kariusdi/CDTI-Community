@@ -4,7 +4,7 @@ module.exports = (app) => {
     const chat = require("../controllers/chat.controller")
     const community = require("../controllers/commu.controller")
 
-    app.get('/login', authen.login)
+    // app.get('/login', authen.login)
     app.get('/', authen.home)
     app.post('/', authen.initlogin)
     app.post('/signup', authen.inituser)

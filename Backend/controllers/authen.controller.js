@@ -39,7 +39,7 @@ exports.inituser = async (req, res) => {
             res.render("login")
 
         }else if(name == '' || email == '' || password == ''){
-            res.render("signup", {error_msg: "You may be missing some information, please fill up all."})
+            res.render("signup", {error_msg: "You are missing some information, please fill up all."})
             // res.send("You may be missing some information, please fill up all.")
         }
         else{
@@ -57,9 +57,9 @@ exports.initlogin = async (req, res) => {
     try{
         const check = await collection.findOne({email: req.body.email})
 
-        const isMatch = await check.comparePassword(req.body.password);
+        const isMatched = await check.comparePassword(req.body.password);
 
-        if(isMatch && check.email == req.body.email){
+        if(isMatched && check.email == req.body.email){
             session = req.session
             session.userid = req.body.email
             console.log(req.body.email, "has logged in.")

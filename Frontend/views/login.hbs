@@ -8,23 +8,34 @@
     <link rel="stylesheet" href="/css/login.css">
     <title>Login page</title>
 </head>
+
 <body>
 
-    <h1>Log In</h1>
+    <div class="parent">
 
-    <form action="/" method="post">
+        <div class="img-frame">
+            <img class="loginPic" src=" https://sv1.picz.in.th/images/2023/02/04/LihExl.jpg" alt="" />
+        </div>
 
-    <input type="email" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <a href="/signup">Don't have an account?</a>
-    <input type="submit">
+        <div class="login-frame">
+        
+            <h1>Log In</h1>
+            <form action="/" method="post">
 
-    </form>
+            <p class="email">Email</p>
+            <input type="email" name="email" placeholder="@cdti.ac.th">
+            <p class="password">Password</p>
+            <input type="password" name="password" placeholder="Password">
+            {{#if error_msg}}
+                <p class="error-msg">{{ error_msg }}</p>      
+            {{/if}}
+            <input type="submit" value="Log in">
+            <p class="no-account">Don't have an account yet? <a class="signup" href="/signup"> Sign Up</a></p>
 
-    {{#if error_msg}}
-        <p>{{ error_msg }} </p>      
-    {{/if}}
-     
-    
+            </form>
+            
+        </div>
+    </div>
+
 </body>
 </html>

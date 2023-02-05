@@ -10,21 +10,34 @@
 </head>
 <body>
 
-    <h1>Sign up</h1>
+    <div class="parent">
 
-    <form action="/signup" method="post">
+        <div class="img-frame">
+            <img class="loginPic" src=" https://sv1.picz.in.th/images/2023/02/04/LihExl.jpg" alt="" />
+        </div>
 
-    <input type="name" name="name" placeholder="Username">
-    <input type="email" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Sign Up">
-    
-    </form>
+        <div class="login-frame">
+        
+            <h1>Sign up</h1>
+            <form action="/signup" method="post">
 
-    {{#if error_msg}}
-        <p>{{ error_msg }} </p>      
-    {{/if}}
-     
-    
+            <p class="name">Username</p>
+            <input type="name" name="name" placeholder="Yourname">
+            <p class="email">Email</p>
+            <input type="email" name="email" placeholder="@cdti.ac.th">
+            <p class="password">Password</p>
+            <input type="password" name="password" placeholder="Password">
+            {{#if error_msg}}
+                <p class="error-msg">{{ error_msg }}</p>      
+            {{/if}}
+            <input type="submit" value="Sign Up">
+            
+            <p class="have-account">Already with us? <a class="signup" href="/"> Log In</a></p>
+
+            </form>
+            
+        </div>
+    </div>
+
 </body>
 </html>
