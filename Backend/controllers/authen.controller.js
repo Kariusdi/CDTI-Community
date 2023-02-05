@@ -15,7 +15,7 @@ exports.home = async (req, res) => {
 
     if(session.userid){
         const check = await collection.findOne({email: session.userid})
-        res.render("home", {username: check.name, userid: session.userid})
+        res.render("community-home", {username: check.name, userid: session.userid})
     }else
     res.render("login")
     
@@ -43,7 +43,7 @@ exports.inituser = async (req, res) => {
             // res.send("You may be missing some information, please fill up all.")
         }
         else{
-            res.render("signup", {error_msg: "Username or password has been used, please try again."})
+            res.render("signup", {error_msg: "Username or email has been used, try again."})
         }
         
     }catch{
@@ -66,7 +66,7 @@ exports.initlogin = async (req, res) => {
             // console.log(check.name)
             console.log(req.session)
             // console.log(req.session.cookie._expires.toString())
-            res.render("home", {username: check.name, userid: session.userid})
+            res.render("community-home", {username: check.name, userid: session.userid})
         }else{
             res.render("login", {error_msg: "Email or password is incorrect, please try again."})
         }

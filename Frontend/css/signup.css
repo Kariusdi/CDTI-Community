@@ -61,6 +61,7 @@ input[type=submit]:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 0px 10px #888;
+    transition: .2s;
 }
 
 .img-frame {
@@ -121,6 +122,7 @@ input[type=submit]:hover {
 
     .parent {
         height: 40rem;
+        transition: .2s;
     }
 }
 
@@ -135,6 +137,7 @@ input[type=submit]:hover {
     .parent {
         flex-direction: column;
         height: 45rem;
+        transition: .2s;
     }
 
     .img-frame {
@@ -169,6 +172,7 @@ input[type=submit]:hover {
     .parent {
         flex-direction: column;
         height: 45rem;
+        transition: .2s;
     }
 
     .img-frame {
@@ -205,6 +209,7 @@ input[type=submit]:hover {
     .parent {
         flex-direction: column;
         height: 50rem;
+        transition: .2s;
     }
 
     .img-frame {
