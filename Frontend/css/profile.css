@@ -94,12 +94,10 @@ header {
 }
 
 main {
-    /* width: 60rem; */
     height: 100vh;
     display: flex;
     flex-direction: column;
-    text-align: start;
-    align-items: start;
+    text-align: center;
     margin-left: 5rem;
     margin-right: 5rem;
     margin-top: 3rem;
@@ -110,28 +108,10 @@ main h2 {
     text-align: start;
 }
 
-.post-box {
-    width: 100%;
-    height: 25rem;
-    text-align: start;
-    margin-top: 50px;
-    padding: 2rem;
-    background-color:rgb(223, 223, 223);
-    border-radius: 1rem;
-}
-
-.contents {
-    padding-top: 40px;
-}
-
-.name {
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-.time {
-    color: gray;
-}
+/* li a{
+    display: flex;
+    justify-content: space-between;
+} */
 
 @media screen and (max-width: 1280px) {
     header {

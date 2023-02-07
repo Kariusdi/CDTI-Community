@@ -1,4 +1,5 @@
-const collection = require("../models/mongodb_authen.js")
+const users = require("../models/mongodb_authen.js")
+const posts = require("../models/mongodb_post.js")
 var session;
 
 exports.login = (req, res) => {
@@ -14,8 +15,21 @@ exports.home = async (req, res) => {
     session = req.session
 
     if(session.userid){
-        const check = await collection.findOne({email: session.userid})
-        res.render("community-home", {username: check.name, userid: session.userid})
+        const check = await users.findOne({email: session.userid})
+
+        posts.find((err, contents) => {
+            if(err) {
+                console.log('Failed to retrieve contents: ' + err)
+            }else{
+                res.render("community-home", {
+                    username: check.name,
+                    userid: session.userid,
+                    contents_data: contents,
+                })
+            }
+        })
+
+        // res.render("community-home", {username: check.name, userid: session.userid})
     }else
     res.render("login")
     
@@ -23,13 +37,13 @@ exports.home = async (req, res) => {
 
 exports.inituser = async (req, res) => {
 
-    const data = {name, email, password } = req.body;
+    const data = {name, email, password} = req.body;
     // console.log(name.toLowerCase(), email, password)
 
     try{
-        const check = await collection.findOne({email: email})
+        const check = await users.findOne({email: email})
         if(check == null && name != '' && email != '' && password != ''){
-            const user = await collection({
+            const user = await users({
                 name,
                 email,
                 password,})
@@ -55,7 +69,7 @@ exports.inituser = async (req, res) => {
 exports.initlogin = async (req, res) => {
 
     try{
-        const check = await collection.findOne({email: req.body.email})
+        const check = await users.findOne({email: req.body.email})
 
         const isMatched = await check.comparePassword(req.body.password);
 
@@ -65,8 +79,8 @@ exports.initlogin = async (req, res) => {
             console.log(req.body.email, "has logged in.")
             // console.log(check.name)
             console.log(req.session)
-            // console.log(req.session.cookie._expires.toString())
-            res.render("community-home", {username: check.name, userid: session.userid})
+            console.log(session.userid)
+            res.redirect('/')
         }else{
             res.render("login", {error_msg: "Email or password is incorrect, please try again."})
         }
@@ -80,7 +94,7 @@ exports.initlogin = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    // await collection("useraccounts").insertOne(req.session.cookie._expires.toString())
+    // await users("useraccounts").insertOne(req.session.cookie._expires.toString())
     req.session.destroy()
     console.log(req.session)
     res.redirect('/')

@@ -111,6 +111,9 @@ input[type=submit]:hover {
 
 /* goes small size */
 @media screen and (max-width: 768px) {
+    input[type=submit] {
+        margin-top: 0px;
+    }
     .parent {
         flex-direction: column;
         height: 45rem;
@@ -136,6 +139,9 @@ input[type=submit]:hover {
 
 /* goes moblie size */
 @media screen and (max-width: 375px) {
+    input[type=submit] {
+        margin-top: 0px;
+    }
     .parent {
         flex-direction: column;
         height: 45rem;
