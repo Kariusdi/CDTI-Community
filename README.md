@@ -10,5 +10,7 @@ Requirements
 https://docs.google.com/document/d/1_0lx6yL6T35bPq1rVvICq0lVcjZOVn6P6GaKxkJW5eU/edit
 
 Running website with
+\n
 cd Backend
+\n
 npm start
