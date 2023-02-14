@@ -48,7 +48,7 @@
         </ul>
 
         <div class="account">
-            <a href="/profile" class="user"><i class="ri-account-circle-fill"></i></a>
+            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
             <div class="bx bx-menu" id="menu-icon"></div>
         </div>
         
@@ -56,11 +56,66 @@
 
     <main>
 
-        <h1>Profile</h1>
-        <p>{{ username }}</p>
-        <p>{{ email }}</p>
-        
+        <div class="profileBox">
+            <div class="profilepicture">
+                <img src="https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png" alt="">
+            </div>
+            <div class="profileinfo">
+                {{!-- <h1>Profile</h1> --}}
+                <h1>{{ account.name }}</h1>
+                <p>{{ account.email }}</p>
+            </div>
+        </div>
+
+        <div class="post-container">
+            {{#if noblog}}
+                {{#each contents_data.blogs}}
+                    <br>
+                    <div class="post-box">
+                        <div class="post-boxHeader">
+                            <div class="textHeader">
+                                <p class="name">{{name}}</p>
+                                <p class="time">posted on  {{time}}</p>
+                            </div>
+                            <div class="iconHeader">
+                                <form id="delete" action="/deletepost/{{ ../blogid }}/{{ _id }}" method="POST">
+                                    <a onclick="myalert()"><i class="ri-delete-bin-fill"></i></a>
+                                </form>
+
+                                <form id="myform" action="/edit/post/{{ ../blogid }}/{{ _id }}" method="GET">
+                                    <a onclick="edit()"><i class="ri-edit-fill"></i></a>
+                                </form>    
+                                
+                            </div>
+                        </div>
+                        {{!-- <div class="condata"> --}}
+                        <p class="contents">{{content}}</p>
+                            {{!-- </div> --}}  
+                    </div>
+                {{/each}}  
+            {{else}}
+                <br>
+                <p>You haven't post anything yet, try to share something!</p>  
+            {{/if}}
+        </div>
+
     </main>
+    
+    <script>
+        function myalert() {
+            if (confirm('Are you sure you want to delete this post?')) {
+            // Save it!
+                document.getElementById('delete').submit();
+            }
+        }
+
+        function edit() {
+            if (confirm('Do you want to edit this post?')) {
+            // Save it!
+                document.getElementById('myform').submit();
+            }
+        }
+    </script>
     
 </body>
 </html>

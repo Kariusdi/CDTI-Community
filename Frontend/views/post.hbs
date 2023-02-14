@@ -48,7 +48,7 @@
         </ul>
 
         <div class="account">
-            <a href="/profile" class="user"><i class="ri-account-circle-fill"></i></a>
+            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
             <div class="bx bx-menu" id="menu-icon"></div>
         </div>
         
@@ -56,9 +56,12 @@
 
     <main>
         <form action="/post-content" method="post">
-
-        <p class="name">Create post</p>
-        <input type="text" name="content" placeholder="What's on your mind?">
+        <p>{{ postBlogs }}</p>
+        <p class="name">Make your blog</p>
+        <br>
+        {{!-- <input type="text" name="content" placeholder="What's on your mind?"> --}}
+        <textarea class="blog" placeholder="What's on your mind?" name="content" rows="15" cols="90" style="padding: 2rem;"></textarea>
+        <br>
         <input type="submit" value="Post">
 
         </form>

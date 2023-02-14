@@ -1,4 +1,4 @@
-const posts = require("../models/mongodb_post.js")
+const posts = require("../models/mongodb_newpost.js")
 const users = require("../models/mongodb_authen.js")
 var session;
 
@@ -21,30 +21,43 @@ exports.postcontent = async (req, res) => {
     session = req.session
 
     try{
-        const check = await users.findOne({email: session.userid})
-        const name = check.name
-        const content = req.body.content
-        const time = timeformat
+        const check_user = await users.findOne({email: session.userid})
+        const check_posts = await posts.findOne({user: session.userid})
 
-        console.log(content)
+        const name = check_user.name
+        const user = session.userid
 
-        if(content != ''){
-            const post = await posts({
-                name,
-                content,
-                time,})
-            await post.save()    
+        const blogs = [{
+            "name": name,
+            "content": req.body.content,
+            "img": "none",
+            "time": timeformat
+        }]
 
-            posts.find((err, contents) => {
-                if(err) {
-                    console.log('Failed to retrieve contents: ' + err)
-                }else{
-                    res.redirect("/")
-                }
-            })
+        if(req.body.content != ''){
+            console.log(check_posts)
+            if(check_posts == null){
+                const post = await posts({
+                    user,
+                    blogs,
+                })
+                await post.save()  
+            }else{
+                await posts.findOneAndUpdate(
+                    {
+                        user: user,
+                    },
+                    {
+                        $addToSet: {
+                            blogs: blogs,
+                        },
+                    }
+                )
+            }
+            res.redirect("/")
         }
         else{
-            res.send('Cant store data')
+            res.send('Content is empty')
         }
         
     }catch{
@@ -52,3 +65,5 @@ exports.postcontent = async (req, res) => {
     }
 
 }
+
+

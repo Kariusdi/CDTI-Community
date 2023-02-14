@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/community-home.css">
-    <title>CDTI Communtity Board</title>
+    <link rel="stylesheet" href="/css/post.css">
+    <title>Post page</title>
 </head>
 <body>
 
@@ -56,39 +55,22 @@
     </header>
 
     <main>
-        {{#if userid}}
-            <h2>Welcome, {{ account.name }}</h2>
-            <p class="greetings">Enjoy. Our community. Please use as polite as you can.</p>
-        {{else}}
-            <p>You are not logged in</p>    
-        {{/if}}
+        <form action="/edited/{{ userpostId }}/{{ blogId }}" method="post">
+        <p>{{ postBlogs }}</p>
+        <p class="name">Edit your blog</p>
         <br>
-        
-        {{#if contents_data}}
-            {{#each contents_data}}
-                {{#each blogs}}
-                    <div class="post-box">
-                        <p class="name">{{name}}</p>
-                        <p class="time">posted on  {{time}}</p>
-                        <p class="contents">{{content}}</p>
-                    </div>
-                {{/each}}  
-            {{/each}}
-        {{else}}
-            <p>No posts yet.</p>    
-        {{/if}}    
-        {{!-- <img src="https://sv1.picz.in.th/images/2023/02/05/LRSb3a.jpg" alt="">
+        {{!-- <input type="text" name="content" placeholder="What's on your mind?"> --}}
+        <textarea class="blog" placeholder="What's on your mind?" name="content" rows="15" cols="90" style="padding: 2rem;">{{#each contents_data.blogs}}{{ content }}{{/each}}</textarea>
         <br>
-        <img src="https://sv1.picz.in.th/images/2023/02/05/LRSb3a.jpg" alt="">
-        <br>
-        <img src="https://sv1.picz.in.th/images/2023/02/05/LRSb3a.jpg" alt=""> --}}
-    </main> 
+        <input type="submit" value="Edit">
+
+        </form>
+        {{!-- <p>{{userid}}</p> --}}
+    </main>
 
     {{!-- <footer>
         <p>Please contact us 095-573-9706</p>
     </footer> --}}
-    {{!-- <script src="/togglemenu.js"></script> --}}
-    
     
 </body>
 </html>
