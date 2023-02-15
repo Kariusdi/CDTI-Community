@@ -76,14 +76,18 @@
                             <div class="textHeader">
                                 <p class="name">{{name}}</p>
                                 <p class="time">posted on  {{time}}</p>
+                                
                             </div>
                             <div class="iconHeader">
                                 <form id="delete" action="/deletepost/{{ ../blogid }}/{{ _id }}" method="POST">
-                                    <a onclick="myalert()"><i class="ri-delete-bin-fill"></i></a>
+                                    {{!-- <input type="submit", value="delete"> --}}
+                                    <button type="submit"><i class="ri-delete-bin-fill"></i></button>
+                                    {{!-- <a onclick="myalert()"><i class="ri-delete-bin-fill"></i></a> --}}
                                 </form>
-
                                 <form id="myform" action="/edit/post/{{ ../blogid }}/{{ _id }}" method="GET">
-                                    <a onclick="edit()"><i class="ri-edit-fill"></i></a>
+                                    <button type="submit"><i class="ri-edit-fill"></i></i></button>
+                                    {{!-- <input type="submit", value="edit"> --}}
+                                    {{!-- <a onclick="edit()"><i class="ri-edit-fill"></i></a> --}}
                                 </form>    
                                 
                             </div>

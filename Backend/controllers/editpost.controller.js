@@ -5,7 +5,22 @@ var session;
 
 exports.editpost = async (req, res) => {
     session = req.session
-    const post = await posts.findOne({ _id: req.params.blogid });
+    console.log(req.params.blogid)
+    console.log(req.params._id)
+    // const post = await posts.find({
+    //     _id: req.params.blogid,
+    //     blogs: [
+    //         {
+    //             _id: req.params._id
+    //         }
+    //     ]
+    // });
+    const post = await posts.findOne(
+        { "_id": req.params.blogid, "blogs._id": req.params._id },
+        { "blogs.$": 1 }
+    );
+      
+    // const post = await posts.findOne({ _id: req.params.blogid });
     console.log("-----", post)
     res.render("editpost" , {userid: session.userid, userpostId: req.params.blogid, blogId: req.params._id, contents_data: post})
 }
