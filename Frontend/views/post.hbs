@@ -26,12 +26,12 @@
                 <span class="navtext">   Home</span>
                 </a>
             </li>
-            <li>
+            {{!-- <li>
                 <a href="/chat">
                 <i class="ri-message-2-fill"></i>
                 <span class="navtext">   Chat</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a href="/post">
                 <i class="ri-chat-upload-fill"></i>
@@ -55,22 +55,106 @@
     </header>
 
     <main>
-        <form action="/post-content" method="post">
-        <p>{{ postBlogs }}</p>
-        <p class="name">Make your blog</p>
-        <br>
-        {{!-- <input type="text" name="content" placeholder="What's on your mind?"> --}}
-        <textarea class="blog" placeholder="What's on your mind?" name="content" rows="15" cols="90" style="padding: 2rem;"></textarea>
-        <br>
-        <input type="submit" value="Post">
 
-        </form>
-        {{!-- <p>{{userid}}</p> --}}
+        <div class="parent">
+
+            <div class="container">
+                <div class="profileBox">
+                    <div class="profilepicture">
+                        <img src="{{account.avatar}}" alt="">
+                    </div>
+                    <div class="profileinfo">
+                        <h1>{{ account.name }}</h1>
+                        <p>Make your blog</p>
+                    </div>
+
+                </div>
+
+                <div id="imgUploaded">
+
+                    <input 
+                        type="file" 
+                        class="inputFile" 
+                        id="fileInp" 
+                        onchange="getfile(event)"
+                        accept="image/png, image/jpeg"
+                    />
+                        
+                    
+                    <label id="plus" for="fileInp">+<p>Add image</p></label>
+                    <span class="fileText"></span>
+
+                    
+                    <img id="img">
+
+                </div>
+
+            </div>
+                    
+            <div class="content">
+                <form action="/post-content" method="post">
+                    <textarea class="blog" placeholder="What's on your mind?" name="content" rows="21" cols="75" style="padding: 1rem; border-radius: 0.5rem;"></textarea>
+                    <input type="hidden" name="imageUrl" id="imageUrl" value="">
+                    <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
+                    post as anonymous?
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+
+        </div>
+       
     </main>
 
-    {{!-- <footer>
-        <p>Please contact us 095-573-9706</p>
-    </footer> --}}
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEjy945SOBmXxKrGsjKD7Z_icipLO8sfI",
+            authDomain: "cdti-board.firebaseapp.com",
+            projectId: "cdti-board",
+            storageBucket: "cdti-board.appspot.com",
+            messagingSenderId: "934507286490",
+            appId: "1:934507286490:web:5b88fdab7fa87b16a4bae3",
+            measurementId: "G-0BMYRTY9VY"
+        };
+
+        firebase.initializeApp(firebaseConfig)
+
+        var fileText = document.querySelector(".fileText")
+        var fileItem;
+        var fileName;
+        var img = document.querySelector(".img")
+
+        function getfile(e){
+                fileItem = e.target.files[0];
+                fileName = fileItem.name;
+                fileText.innerHTML = fileName;
+                uploadImage()
+        } 
+
+        function uploadImage(){
+                let storageRef = firebase.storage().ref("image/" + fileName);
+                let uploadTask = storageRef.put(fileItem)
+
+                uploadTask.on("state_changed", (snapshot) => {
+                    console.log(snapshot)
+
+                }, (error) => {
+                    console.log("Error is", error)
+                }, () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+                        console.log("URL", url)
+                            document.getElementById("imageUrl").value = url
+                            document.getElementById("img").src = url
+                            document.getElementById("img").style.display = 'block'
+                            document.getElementById('plus').style.display = 'none'
+                            document.getElementById('imgUploaded').style.border = 'none'
+                    })
+                })
+        }
+
+    </script>
     
 </body>
 </html>

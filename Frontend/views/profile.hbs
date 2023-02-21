@@ -26,12 +26,12 @@
                 <span class="navtext">   Home</span>
                 </a>
             </li>
-            <li>
+            {{!-- <li>
                 <a href="/chat">
                 <i class="ri-message-2-fill"></i>
                 <span class="navtext">   Chat</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a href="/post">
                 <i class="ri-chat-upload-fill"></i>
@@ -58,7 +58,7 @@
 
         <div class="profileBox">
             <div class="profilepicture">
-                <img src="https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png" alt="">
+                <img src="{{account.avatar}}" alt="">
             </div>
             <div class="profileinfo">
                 {{!-- <h1>Profile</h1> --}}
@@ -67,58 +67,69 @@
             </div>
         </div>
 
-        <div class="post-container">
+        
             {{#if noblog}}
-                {{#each contents_data.blogs}}
+            <div class="post-container">
+                {{#each contents_data}}
                     <br>
                     <div class="post-box">
                         <div class="post-boxHeader">
                             <div class="textHeader">
                                 <p class="name">{{name}}</p>
-                                <p class="time">posted on  {{time}}</p>
-                                
+                                <p class="time">posted on  {{date}} at {{time}}</p>
                             </div>
                             <div class="iconHeader">
-                                <form id="delete" action="/deletepost/{{ ../blogid }}/{{ _id }}" method="POST">
-                                    {{!-- <input type="submit", value="delete"> --}}
-                                    <button type="submit"><i class="ri-delete-bin-fill"></i></button>
-                                    {{!-- <a onclick="myalert()"><i class="ri-delete-bin-fill"></i></a> --}}
-                                </form>
-                                <form id="myform" action="/edit/post/{{ ../blogid }}/{{ _id }}" method="GET">
+
+                                {{!-- <button class="del-button">
+                                    <i class="ri-delete-bin-fill"></i>
+                                </button> --}}
+
+                                <form action="/edit/post/{{ ../blogid }}/{{ _id }}" method="GET">
                                     <button type="submit"><i class="ri-edit-fill"></i></i></button>
-                                    {{!-- <input type="submit", value="edit"> --}}
-                                    {{!-- <a onclick="edit()"><i class="ri-edit-fill"></i></a> --}}
                                 </form>    
+
+                                <form action="/deletepost/{{ ../blogid }}/{{ _id }}" method="POST">
+                                    <button class="del-button">
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+                                    {{!-- <div class="popup" id="popup-container">
+                                        <h2>Delete this post?</h2>
+                                        <p>This action will be permanetly deleted.</p>
+                                        <div class="button-container">
+                                            <button type="submit" class="delete">Delete</button>
+                                            <button type="button" class="cancel delete" onclick="cancel()">Cancel</button>
+                                        </div>
+                                    </div> --}}
+                                </form> 
+
                                 
+
                             </div>
                         </div>
-                        {{!-- <div class="condata"> --}}
+                        <div class="content-img">
+                            <img src="{{img}}">
+                        </div>
                         <p class="contents">{{content}}</p>
-                            {{!-- </div> --}}  
                     </div>
                 {{/each}}  
+            </div>
             {{else}}
-                <br>
-                <p>You haven't post anything yet, try to share something!</p>  
+                <br><br><br>
+                <h3>You haven't post anything yet, try to share something!</h3>  
             {{/if}}
-        </div>
-
+            
     </main>
     
     <script>
-        function myalert() {
-            if (confirm('Are you sure you want to delete this post?')) {
-            // Save it!
-                document.getElementById('delete').submit();
-            }
+        
+        function deletePopup() {
+            document.getElementById("popup-container").style.visibility = 'visible'
         }
 
-        function edit() {
-            if (confirm('Do you want to edit this post?')) {
-            // Save it!
-                document.getElementById('myform').submit();
-            }
+        function cancel() {
+            document.getElementById("popup-container").style.visibility = 'hidden'
         }
+
     </script>
     
 </body>

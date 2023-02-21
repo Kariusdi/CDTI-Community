@@ -97,6 +97,17 @@ input[type=submit]:hover {
     color: red;
 }
 
+@media screen and (min-width: 1043px) {
+    input[type=submit] {
+        margin-top: 3rem;
+    }
+
+    .parent {
+        height: 36rem;
+        transition: .2s;
+    }
+}
+
 /* goes medium size */
 @media screen and (max-width: 1042px) and (min-width: 769px) {
     input[type=submit] {
@@ -104,7 +115,7 @@ input[type=submit]:hover {
     }
 
     .parent {
-        height: 34rem;
+        height: 36rem;
         transition: .2s;
     }
 }
@@ -116,7 +127,7 @@ input[type=submit]:hover {
     }
     .parent {
         flex-direction: column;
-        height: 45rem;
+        height: 47rem;
         transition: .2s;
     }
 
@@ -144,7 +155,7 @@ input[type=submit]:hover {
     }
     .parent {
         flex-direction: column;
-        height: 45rem;
+        height: 47rem;
         max-width: 75%;
         transition: .2s;
     }

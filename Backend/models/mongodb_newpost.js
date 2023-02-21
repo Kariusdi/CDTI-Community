@@ -10,10 +10,17 @@ const PostSchema = new mongoose.Schema({
     },
     blogs : [
         {
-        name : String,
-        content : String,
-        img : String,
-        time : String,
+            avatar: String,
+            name : String,
+            content : String,
+            img : String,
+            date : String,
+            time : String,
+            comments: [{
+                avatar: String,
+                name : String,
+                comment : String,
+            }]
         }
     ],
 })

@@ -11,8 +11,7 @@ exports.signup = (req, res) => {
 
 exports.inituser = async (req, res) => {
 
-    const data = {name, email, password} = req.body;
-    // console.log(name.toLowerCase(), email, password)
+    const data = {name, email, password, avatar} = req.body;
 
     try{
         const check = await users.findOne({email: email})
@@ -21,7 +20,9 @@ exports.inituser = async (req, res) => {
             const user = await users({
                 name,
                 email,
-                password,})
+                password,
+                avatar,
+            })
             await user.save()    
         
             console.log(data.email, "has signed up.")
@@ -53,7 +54,7 @@ exports.initlogin = async (req, res) => {
             session.userid = req.body.email
             console.log(req.body.email, "has logged in.")
             // console.log(check.name)
-            console.log(req.session)
+            // console.log(req.session)
             // console.log(session.userid)
             res.redirect('/')
         }else{

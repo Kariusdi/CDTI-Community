@@ -55,17 +55,38 @@
     </header>
 
     <main>
-        <form action="/edited/{{ userpostId }}/{{ blogId }}" method="post">
-        <p>{{ postBlogs }}</p>
-        <p class="name">Edit your blog</p>
-        <br>
-        {{!-- <input type="text" name="content" placeholder="What's on your mind?"> --}}
-        <textarea class="blog" placeholder="What's on your mind?" name="content" rows="15" cols="90" style="padding: 2rem;">{{#each contents_data.blogs}}{{ content }}{{/each}}</textarea>
-        <br>
-        <input type="submit" value="Edit">
+        <div class="parent">
+            {{#each contents_data.blogs}}
+                <div class="container">
+                    <div class="profileBox">
+                        <div class="profilepicture">
+                            <img src="{{avatar}}" alt="">
+                        </div>
+                        <div class="profileinfo">
+                            <h1>{{ name }}</h1>
+                            <p>Editing blog mode</p>
+                        </div>
 
-        </form>
-        {{!-- <p>{{userid}}</p> --}}
+                    </div>
+
+                    <div id="imgUploaded" style="border: none;">                    
+                        <img id="img" style="display: block;" src="{{img}}">
+                    </div>
+
+                </div>
+            {{/each}}
+                    
+            <div class="content">
+                <form action="/edited/{{ blogid }}/{{_id}}" method="post">
+                    <textarea class="blog" placeholder="What's on your mind?" name="content" rows="21" cols="75" style="padding: 1rem; border-radius: 0.5rem;">{{#each contents_data.blogs}}{{ content }}{{/each}}</textarea>
+                    <input type="hidden" name="imageUrl" id="imageUrl" value="">
+                    {{!-- <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
+                    post as anonymous? --}}
+                    <input type="submit" value="edit">
+                </form>
+            </div>
+
+        </div>
     </main>
 
     {{!-- <footer>

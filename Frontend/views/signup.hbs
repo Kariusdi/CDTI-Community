@@ -18,8 +18,28 @@
 
         <div class="login-frame">
         
+            <div class="container">
             <h1>Sign up</h1>
+            
             <form action="/signup" method="post">
+
+            <input 
+                type="file" 
+                class="inputFile" 
+                id="fileInp" 
+                onchange="getfile(event)"
+                accept="image/png, image/jpeg"
+            />
+                
+            <div class="avatar-container">
+                <div class="avatar">
+                    <img src="https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png" id="img">
+                </div>    
+                <label id="plus" for="fileInp">+ Add avatar</label>
+                <span class="fileText"></span>
+                <input type="hidden" name="avatar" id="imageUrl" value="">
+            </div>
+            </div>
 
             <p class="name">Username</p>
             <input type="name" name="name" placeholder="Yourname">
@@ -38,6 +58,55 @@
             
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEjy945SOBmXxKrGsjKD7Z_icipLO8sfI",
+            authDomain: "cdti-board.firebaseapp.com",
+            projectId: "cdti-board",
+            storageBucket: "cdti-board.appspot.com",
+            messagingSenderId: "934507286490",
+            appId: "1:934507286490:web:5b88fdab7fa87b16a4bae3",
+            measurementId: "G-0BMYRTY9VY"
+        };
+
+        firebase.initializeApp(firebaseConfig)
+
+        var fileText = document.querySelector(".fileText")
+        var fileItem;
+        var fileName;
+        var img = document.querySelector(".img")
+
+        function getfile(e){
+                fileItem = e.target.files[0];
+                fileName = fileItem.name;
+                fileText.innerHTML = fileName;
+                uploadImage()
+        } 
+
+        function uploadImage(){
+                let storageRef = firebase.storage().ref("image/" + fileName);
+                let uploadTask = storageRef.put(fileItem)
+
+                uploadTask.on("state_changed", (snapshot) => {
+                    console.log(snapshot)
+
+                }, (error) => {
+                    console.log("Error is", error)
+                }, () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+                        console.log("URL", url)
+                            document.getElementById("imageUrl").value = url
+                            document.getElementById("img").src = url
+                            document.getElementById("img").style.display = 'block'
+                    })
+                })
+        }
+
+    </script>
 
 </body>
 </html>
