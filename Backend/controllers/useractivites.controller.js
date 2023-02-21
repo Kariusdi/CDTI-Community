@@ -217,7 +217,7 @@ exports.comment = async (req, res) => {
     console.log("--------", post)
     
     if (!post) {
-        console.log(`Post with id ${id} not found.`);
+        console.log(`Post with id is not found.`);
         return;
     }
     
