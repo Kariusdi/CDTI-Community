@@ -212,7 +212,7 @@ exports.commentpostpage = async (req, res) => {
 
     console.log(realpost)
 
-    res.render('comment-page', {content_data: realpost, userid: user._id, email: req.params.email, blogid: blogId})
+    res.render('comment', {content_data: realpost, userid: user._id, email: req.params.email, blogid: blogId})
 }
 
 exports.comment = async (req, res) => {

@@ -95,8 +95,11 @@
                 <form action="/post-content" method="post">
                     <textarea class="blog" placeholder="What's on your mind?" name="content" rows="21" cols="75" style="padding: 1rem; border-radius: 0.5rem;"></textarea>
                     <input type="hidden" name="imageUrl" id="imageUrl" value="">
-                    <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
-                    post as anonymous?
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">post as anonymous?
+                        <input type="checkbox" name="anonymous" value="cpe" style="margin-top: 5px;">CPE
+                        <input type="checkbox" name="anonymous" value="ddt" style="margin-top: 5px;">DDT
+                    </div>
                     <input type="submit" value="Post">
                 </form>
             </div>

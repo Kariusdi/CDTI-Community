@@ -106,10 +106,29 @@
 
                             </div>
                         </div>
+                        <p class="contents">{{content}}</p>
                         <div class="content-img">
                             <img src="{{img}}">
                         </div>
-                        <p class="contents">{{content}}</p>
+                        <div class="somecomments">
+                            {{#if comments}} 
+                                {{#each comments}}
+                                    <div class="each-comment">
+                                        <div class="user-comment">
+                                            <div class="avatar-comment">
+                                                <img src = "{{avatar}}">
+                                            </div>
+                                            <div class="comment-data">
+                                                <p style="font-size: 20px; font-weight: bold;">{{name}}</p>
+                                                <p style="margin-top: 7px;">{{comment}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <h3>No comments yet.</h3>  
+                            {{/if}}    
+                        </div>
                     </div>
                 {{/each}}  
             </div>

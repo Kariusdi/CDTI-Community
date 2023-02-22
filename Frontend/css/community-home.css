@@ -33,7 +33,7 @@ header {
     justify-content: space-between;
     background: transparent;
     background-color: white;
-    padding: 28px 12%;
+    padding: 28px 10%;
     transition: all .50s ease;
 }
  /* h2{
@@ -138,6 +138,7 @@ main h2 {
     align-items: center;
     overflow: hidden;
     max-height: 100%;
+    padding: 1rem;
 }
 
 .content-img img {
@@ -157,6 +158,7 @@ main h2 {
 
 .contents {
     padding-top: 2rem;
+    font-size: 1.1rem;
 }
 
 .name {
@@ -174,8 +176,8 @@ main h2 {
 }
 
 .profilepicture {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
 }
 
@@ -245,18 +247,22 @@ main h2 {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-   
 }
 
 .comment-data {
-    background-color: whitesmoke;
+    background-color: white;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.18);
     padding: 1rem;
     border-radius: 1rem;
 }
 
 .somecomments {
     margin-top: 1rem;
-    max-height: 200px;
+    max-height: 250px;
+    background-color: rgb(250, 250, 250);
+    box-shadow: 0px 0px 20px rgb(200, 200, 200);
+    border-radius: 1rem;
+    /* box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.18); */
     overflow: hidden;
 }
 
@@ -269,6 +275,7 @@ main h2 {
 
 .see-container {
     float: right;
+    margin-top: 1rem;
 }
 
 input[type=text], select {
