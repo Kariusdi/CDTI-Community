@@ -6,6 +6,8 @@ module.exports = (app) => {
     const user_activities = require("../controllers/useractivites.controller")
     // app.get('/login', authen.login)
     app.get('/', community.home)
+    app.get('/CPE', community.CPEhome)
+    app.get('/DDT', community.DDThome)
     app.post('/', authen.initlogin)
     app.post('/signup', authen.inituser)
     app.get('/signup', authen.signup)
@@ -20,7 +22,8 @@ module.exports = (app) => {
     app.post('/edited/:blogid/:_id', user_activities.edited)
     app.post('/deletepost/:blogid/:_id', user_activities.deletePost)
 
-    app.post('/comment', user_activities.comment)
+    app.get('/commentpostpage/:email/:_id', user_activities.commentpostpage)
+    app.post('/comment/:email/:_id', user_activities.comment)
     
     app.get('/chat', chat.chathome)
 

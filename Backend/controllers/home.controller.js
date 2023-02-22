@@ -31,9 +31,6 @@ exports.home = async (req, res) => {
                     }
                     return a.time.localeCompare(b.time);
                 });
-                
-                // console.log("-------------------")
-                console.log(contents_sorted)
 
                 res.render("community-home", {
                     account: user,
@@ -44,4 +41,13 @@ exports.home = async (req, res) => {
         })
     }else
         res.render("login")
+}
+
+
+exports.CPEhome = (req, res) => {
+    res.render('CPE')
+}
+
+exports.DDThome = (req, res) => {
+    res.render('DDT')
 }

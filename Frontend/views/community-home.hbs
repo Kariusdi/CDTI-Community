@@ -29,6 +29,18 @@
                 <span class="navtext">   Home</span>
                 </a>
             </li>
+            <li>
+                <a href="/CPE">
+                <i class="ri-computer-fill"></i>
+                <span class="navtext">   CPE</span>
+                </a>
+            </li>
+            <li>
+                <a href="/DDT">
+                <i class="ri-brush-fill"></i>
+                <span class="navtext">   DDT</span>
+                </a>
+            </li>
             {{!-- <li>
                 <a href="/chat">
                 <i class="ri-message-2-fill"></i>
@@ -90,38 +102,36 @@
                             <p class="contents">{{content}}</p>
                         </div>
 
-                        <p>{{_id}}</p>
-                        
-
                         <div class="content-img">
                             <img src="{{img}}">
                         </div>
 
-                        <div id="Allcomments">
-
-                            {{!-- <div class="each-comment">
-                                <div class="user-comment">
-                                    <div class="avatar-comment">
-                                        <img src = "https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png">
-                                    </div>
-                                    <div class="comment-data">
-                                        <p>Name</p>
-                                        <p></p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="somecomments">
+                            {{#each comments}}
+                                <div class="each-comment">
+                                    <div class="user-comment">
+                                        <div class="avatar-comment">
+                                            <img src = "{{avatar}}">
+                                        </div>
+                                        <div class="comment-data">
+                                            <p>{{name}}</p>
+                                            <p>{{comment}}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> --}}
-
+                            {{/each}}
                         </div>
-                        
-                        <form id="commentForm" action="/comment" method="post">
-                            <input type="submit" value="post">
-                            {{!-- <div class="comment">
-                                <input type="text" name="comment" placeholder="Add a comment ...."> --}}
-                                {{!-- <button type="submit" value="Post" style="width: 100px; height: 100px;"></button> --}}
-                                    {{!-- <i class="ri-arrow-right-circle-fill"></i>
-                                </button>
-                            </div> --}}
-                        </form>
+
+                        <div class="see-container">
+                            <form action="/commentpostpage/{{email}}/{{_id}}" method="get">
+                                <button type="submit" class="push">
+                                    <div class="seeformore">
+                                        <p style="font-size: 1rem; margin-right: 1rem;">comment and see more here!</p>
+                                        <i class="ri-arrow-right-circle-fill"></i>
+                                    </div>    
+                                </button>  
+                            </form>
+                        </div>
                         
                     </div>
                 {{!-- {{/each}}   --}}
@@ -129,7 +139,8 @@
             {{/each}}
             
         {{else}}
-            <p>No posts yet.</p>    
+            <br><br><br>
+            <h3>No posts yet.</h3>    
         {{/if}}    
     </main> 
 
@@ -137,24 +148,7 @@
         <p>Please contact us 095-573-9706</p>
     </footer> --}}
     <script>
-        document.getElementById("commentForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
-            const formData = new FormData(event.target); // Get form data
-            const comment = formData.get("comment"); // Get comment text
-            fetch("/comments", {
-                method: "POST",
-                body: JSON.stringify({ comment }),
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const commentDiv = document.createElement("div");
-                commentDiv.textContent = data.comment;
-                document.getElementById("comments").appendChild(commentDiv);
-                event.target.reset(); // Clear form after successful submission
-            })
-            .catch(error => console.error(error));
-        });
+        
     </script>
     
     

@@ -2,15 +2,6 @@ const posts = require("../models/mongodb_newpost.js")
 const users = require("../models/mongodb_authen.js");
 var session;
 
-const admin = require("firebase-admin");
-const serviceAccount = require("../path/serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: "cdti-board.appspot.com"
-});
-
-
 exports.profile = (req, res) => {
     res.render("profile")
 }
@@ -40,7 +31,7 @@ exports.post = async (req, res) => {
     try{
         const user = await users.findOne({email: session.userid})
 
-        res.render("post" , {account: user})
+        res.render("post" , {account: user, userid: user._id})
   
     }catch{
         res.send('Something went wrong')
@@ -83,6 +74,7 @@ exports.postcontent = async (req, res) => {
         const blogs = [{
             "avatar": avatar,
             "name": name,
+            "email": check_user.email,
             "content": req.body.content,
             "img": req.body.imageUrl,
             "date": dateformat,
@@ -171,7 +163,7 @@ exports.deletePost = async (req, res) => {
     
     
     if (!post) {
-        console.log(`Post with id ${id} not found.`);
+        console.log(`Post with id is not found.`);
         return;
     }
 
@@ -206,15 +198,31 @@ exports.deletePost = async (req, res) => {
 
 }
 
+exports.commentpostpage = async (req, res) => {
+    session = req.session
+
+    const post = await posts.findOne({ user: req.params.email});
+    const user = await users.findOne({email: session.userid})
+    const blogId = post._id
+
+    const realpost = await posts.findOne(
+        { "_id": blogId, "blogs._id": req.params._id },
+        { "blogs.$": 1 }
+    );
+
+    console.log(realpost)
+
+    res.render('comment-page', {content_data: realpost, userid: user._id, email: req.params.email, blogid: blogId})
+}
+
 exports.comment = async (req, res) => {
 
     session = req.session
 
-    const blogId = req.params.blogid
     const userpostId = req.params._id
-    var post = await posts.findOne({ user: session.userid});
-
-    console.log("--------", post)
+    const user = await users.findOne({email: session.userid})
+    var post = await posts.findOne({ user: req.params.email});
+    const blogId = post._id
     
     if (!post) {
         console.log(`Post with id is not found.`);
@@ -222,15 +230,15 @@ exports.comment = async (req, res) => {
     }
     
     const comment = [{
-        "avatar": "Test.jpg",
-        "name": "Test",
-        "conment": "Test 123",
+        "avatar": user.avatar,
+        "name": user.name,
+        "comment": req.body.comment,
     }]
 
-    res.redirect('/')
+    await posts.updateOne(
+        { "_id": blogId, "blogs._id": userpostId },
+        { $push: { "blogs.$.comments": comment } },
+    ); 
 
-    // await posts.updateOne(
-    //     { "_id": blogId, "blogs._id": userpostId },
-    //     { $push: { "blogs.$.comments": comment } },
-    // ); 
+    res.redirect('back')
 }

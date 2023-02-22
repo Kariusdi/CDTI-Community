@@ -12,6 +12,7 @@ const PostSchema = new mongoose.Schema({
         {
             avatar: String,
             name : String,
+            email: String,
             content : String,
             img : String,
             date : String,
