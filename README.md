@@ -17,4 +17,4 @@ https://docs.google.com/document/d/1_0lx6yL6T35bPq1rVvICq0lVcjZOVn6P6GaKxkJW5eU/
 <uo>
 
 <h3>Short description</h3>
-<p>Community board website with the responsive website and simple using for CDTI students include CPE and DDT students for sharing some experiences or questions to the others. Provide you to get an answer from your question and more. Enjoy!</p>
+<p>Community board with the responsive website and simple using for CDTI students include CPE and DDT students. For sharing some experiences or questions to the others. Provide you to get an answer from your question and more. Enjoy!</p>
