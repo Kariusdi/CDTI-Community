@@ -47,6 +47,17 @@ input[type=submit] {
     cursor: pointer;
 }
 
+.department {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.name-dpe {
+    display: flex;
+}
+
 input[type=submit]:hover {
     background-color: rgb(92, 92, 92);
 }
@@ -89,13 +100,19 @@ input[type=submit]:hover {
 }
 
 .email {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
     /* background-color: red; */
 }
 
 .password {
     margin-top: 20px;
+    margin-bottom: 10px;
+    /* background-color: red; */
+}
+
+.dpe {
+    margin-top: 40px;
     margin-bottom: 10px;
     /* background-color: red; */
 }
@@ -154,6 +171,10 @@ input[type=submit]:hover {
     display: flex;
     justify-content: space-between;
 
+}
+
+.department-option {
+    display: flex;
 }
 /* goes medium size */
 @media screen and (max-width: 1390px) and (min-width: 856px) {

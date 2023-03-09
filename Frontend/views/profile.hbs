@@ -62,7 +62,10 @@
             </div>
             <div class="profileinfo">
                 {{!-- <h1>Profile</h1> --}}
-                <h1>{{ account.name }}</h1>
+                <div class="name-box">
+                    <h1>{{ account.name }}</h1>
+                    <h4 class="dpe">#{{ account.department }}</h4>
+                </div>
                 <p>{{ account.email }}</p>
             </div>
         </div>

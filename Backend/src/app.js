@@ -1,6 +1,7 @@
 const express = require("express")
 const path = require("path")
 const hbs = require("hbs")
+const handlebarsHelpers = require("handlebars-helpers")
 const mongoose = require("mongoose")
 const dbConfig = require("../config/authenDB.config")
 const viewPath = path.join("../Frontend/views")
@@ -12,6 +13,9 @@ const app = express()
 
 app.set("view engine", "hbs")
 app.set("views", viewPath)
+
+hbs.registerHelper(handlebarsHelpers())
+
 
 const oneDay = 1000 * 60 * 60 * 24
 app.use(sessions({

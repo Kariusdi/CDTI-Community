@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
 
 exports.inituser = async (req, res) => {
 
-    const data = {name, email, password, avatar} = req.body;
+    const data = {name, department, email, password, avatar} = req.body;
 
     try{
         const check = await users.findOne({email: email})
@@ -19,6 +19,7 @@ exports.inituser = async (req, res) => {
         if(check == null && name != '' && email != '' && password != ''){
             const user = await users({
                 name,
+                department,
                 email,
                 password,
                 avatar,

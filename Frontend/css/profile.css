@@ -343,6 +343,16 @@ button[type=submit], select {
     border-bottom-left-radius: 1rem; */
 }
 
+.name-box {
+    display: flex;
+}
+
+.dpe {
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    color: rgb(158, 158, 158);
+}
+
 @media screen and (max-width: 1280px) {
     header {
         padding: 14px;
