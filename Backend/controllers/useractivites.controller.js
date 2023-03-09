@@ -1,5 +1,5 @@
 const posts = require("../models/mongodb_newpost.js")
-const users = require("../models/mongodb_authen.js");
+const users = require("../models/mongodb_authen.js")
 var session;
 
 exports.profile = (req, res) => {
@@ -13,11 +13,15 @@ exports.getUser_and_Posts = async (req, res) => {
         const user = await users.findOne({email: session.userid})
         const post = await posts.findOne({user: session.userid})
         
+       
         if(post){
-            res.render("profile", {account: user, userid: user._id, blogid: post._id, contents_data: post.blogs.reverse(), noblog: true})
+            res.render("profile", 
+                {account: user, userid: user._id, blogid: post._id, contents_data: post.blogs.reverse(), noblog: true})
         }else{
-            res.render("profile", {account: user, userid: user._id, noblog: null})
+            res.render("profile", 
+                {account: user, userid: user._id, noblog: null})
         }
+       
   
     }catch{
         res.send('Something went wrong')
@@ -59,9 +63,8 @@ exports.postcontent = async (req, res) => {
 
         var name;
         var avatar;
+        var department;
         const user = session.userid
-
-        console.log(req.body.anonymous)
 
         if(req.body.anonymous == "anonymous") {
             name = "anonymous"
@@ -71,41 +74,56 @@ exports.postcontent = async (req, res) => {
             avatar = check_user.avatar
         }
 
+        if(req.body.cpe == "cpe"){
+            department = "CPE"
+        }else if(req.body.ddt == "ddt"){
+            department = "DDT"
+        }else{
+            department = "public"
+        }
+
         const blogs = [{
             "avatar": avatar,
             "name": name,
+            "department": check_user.department,
             "email": check_user.email,
             "content": req.body.content,
             "img": req.body.imageUrl,
             "date": dateformat,
             "time": timeformt,
+            "as": department,
         }]
 
-        if(req.body.content != ''){
-            // console.log(check_posts)
-            if(check_posts == null){
-                const post = await posts({
-                    user,
-                    blogs,
-                })
-                await post.save()  
-            }else{
-                await posts.findOneAndUpdate(
-                    {
-                        user: user,
-                    },
-                    {
-                        $addToSet: {
-                            blogs: blogs,
+            if(req.body.content != ''){
+                if(check_posts == null){
+                    const post = await posts({
+                        user,
+                        blogs,
+                    })
+                    await post.save()  
+                }else{
+                    await posts.findOneAndUpdate(
+                        {
+                            user: user,
                         },
-                    }
-                )
+                        {
+                            $addToSet: {
+                                blogs: blogs,
+                            },
+                        }
+                    )
+                }
+                if(req.body.cpe == "cpe"){
+                    res.redirect("/CPE")
+                }else if(req.body.ddt == "ddt"){
+                    res.redirect("/DDT")
+                }else{
+                    res.redirect("/")
+                }
+            }else{
+                res.send('Content is empty')
             }
-            res.redirect("/")
-        }
-        else{
-            res.send('Content is empty')
-        }
+        
         
     }catch{
         res.send('Something went wrong')
@@ -115,8 +133,6 @@ exports.postcontent = async (req, res) => {
 
 exports.editpost = async (req, res) => {
     session = req.session
-    // console.log(req.params.blogid)
-    // console.log(req.params._id)
 
     const post = await posts.findOne(
         { "_id": req.params.blogid, "blogs._id": req.params._id },

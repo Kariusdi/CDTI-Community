@@ -26,12 +26,21 @@
                 <span class="navtext">   Home</span>
                 </a>
             </li>
-            {{!-- <li>
-                <a href="/chat">
-                <i class="ri-message-2-fill"></i>
-                <span class="navtext">   Chat</span>
-                </a>
-            </li> --}}
+            {{#if (eq account.department "CPE")}}
+                <li>
+                    <a href="/CPE">
+                    <i class="ri-computer-fill"></i>
+                    <span class="navtext">   CPE</span>
+                    </a>
+                </li>
+            {{else}}
+                <li>
+                    <a href="/DDT">
+                    <i class="ri-brush-fill"></i>
+                    <span class="navtext">   DDT</span>
+                    </a>
+                </li>
+            {{/if}}
             <li>
                 <a href="/post">
                 <i class="ri-chat-upload-fill"></i>
@@ -97,8 +106,13 @@
                     <input type="hidden" name="imageUrl" id="imageUrl" value="">
                     <div class="checkbox-container">
                         <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">post as anonymous?
-                        <input type="checkbox" name="anonymous" value="cpe" style="margin-top: 5px;">CPE
-                        <input type="checkbox" name="anonymous" value="ddt" style="margin-top: 5px;">DDT
+                        {{#if (eq account.department "CPE")}}
+                            <input type="checkbox" name="cpe" value="cpe" style="margin-top: 5px;">
+                            <p>post to CPE board</p>
+                        {{else}}
+                            <input type="checkbox" name="ddt" value="ddt" style="margin-top: 5px;">
+                            <p>post to DDT board</p>
+                        {{/if}}
                     </div>
                     <input type="submit" value="Post">
                 </form>

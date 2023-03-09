@@ -60,68 +60,6 @@ header {
     font-weight: bold;
 }
 
-.logo span p {
-    background-color: #CA4246;
-  
-  /* Create the gradient. */
-   background-image: linear-gradient(
-        135deg,
-        #0047AC 25%, 
-        /* #E16541 16.666%, 
-        #E16541 33.333%, 
-        #F18F43 33.333%, 
-        #F18F43 50%,  */
-        /* #8B9862 66.666%, 
-        #476098 66.666%,  */
-        #1497D4 52.555%, 
-        #FFD301 52.555%,
-        #ffae00 100%);
-  
-    /* Set the background size and repeat properties. */
-    background-size: 100%;
-    background-repeat: repeat;
-
-    /* Use the text as a mask for the background. */
-    /* This will show the gradient as a text color rather than element bg. */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-  /* Animate the text when loading the element. */
-    /* This animates it on page load and when hovering out. */
-    animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
-}
-
-.logo span p:hover{
-    animation: rainbow-text-simple-animation 0.5s ease-in forwards;
-}
-
-
-/* Move the background and make it smaller. */
-/* Animation shown when entering the page and after the hover animation. */
-@keyframes rainbow-text-simple-animation-rev {
-    0% {
-        background-size: 650%;
-    }
-    40% {
-        background-size: 650%;
-    }
-    100% {
-        background-size: 100%;
-    }
-}
-
-/* Move the background and make it larger. */
-/* Animation shown when hovering over the text. */
-@keyframes rainbow-text-simple-animation {
-    0% {
-        background-size: 100%;
-    }
-    80% {
-        background-size: 650%;
-    }
-    100% {
-        background-size: 650%;
-    }
-}
 
 .navbar {
     display: flex;
@@ -263,8 +201,13 @@ main h2 {
 }
 
 .greetings-box {
+    height: 20%;
+    background: linear-gradient(
+        -45deg, #EDE9D5 60%, rgba(0, 0, 0, 0) 30%), 
+        #617143 40%;
     text-align: center;
-    align-items: center;
+    margin: auto;
+    padding: 10px;
 }
 
 .user {
@@ -402,15 +345,7 @@ input[type=text]:focus {
   /* Change the background color of the dropdown button when the dropdown content is shown */
   /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
 
-.name-box {
-    display: flex;
-}
 
-.dpe {
-    /* padding-top: 1rem; */
-    /* padding-left: 0.5rem; */
-    color: rgb(158, 158, 158);
-}
 
 
 @media screen and (max-width: 1280px) {
@@ -487,8 +422,4 @@ input[type=text]:focus {
     .account a {
         margin-right: 20px;
     }
-
-
-
 }
-

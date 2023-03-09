@@ -353,6 +353,15 @@ button[type=submit], select {
     color: rgb(158, 158, 158);
 }
 
+.as {
+    display: flex;
+}
+
+.role {
+    margin-left: 5px;
+    color: rgb(104, 104, 104);
+}
+
 @media screen and (max-width: 1280px) {
     header {
         padding: 14px;

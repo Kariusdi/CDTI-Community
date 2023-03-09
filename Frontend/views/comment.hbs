@@ -27,12 +27,21 @@
                 <span class="navtext">   Home</span>
                 </a>
             </li>
-            {{!-- <li>
-                <a href="/chat">
-                <i class="ri-message-2-fill"></i>
-                <span class="navtext">   Chat</span>
-                </a>
-            </li> --}}
+            {{#if (eq account.department "CPE")}}
+                <li>
+                    <a href="/CPE">
+                    <i class="ri-computer-fill"></i>
+                    <span class="navtext">   CPE</span>
+                    </a>
+                </li>
+            {{else}}
+                <li>
+                    <a href="/DDT">
+                    <i class="ri-brush-fill"></i>
+                    <span class="navtext">   DDT</span>
+                    </a>
+                </li>
+            {{/if}}
             <li>
                 <a href="/post">
                 <i class="ri-chat-upload-fill"></i>
