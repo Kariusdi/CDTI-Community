@@ -239,15 +239,25 @@ exports.comment = async (req, res) => {
     const user = await users.findOne({email: session.userid})
     var post = await posts.findOne({ user: req.params.email});
     const blogId = post._id
+    var commentrole
+    var avatar
     
     if (!post) {
         console.log(`Post with id is not found.`);
         return;
     }
+
+    if(req.body.anonymous == "anonymous") {
+        commentrole = "anonymous"
+        avatar = "https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png"
+    }else{
+        commentrole = user.name
+        avatar = user.avatar
+    }
     
     const comment = [{
-        "avatar": user.avatar,
-        "name": user.name,
+        "avatar": avatar,
+        "name": commentrole,
         "comment": req.body.comment,
     }]
 

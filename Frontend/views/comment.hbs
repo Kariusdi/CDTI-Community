@@ -112,11 +112,17 @@
                         
                         
                     <form action="/comment/{{email}}/{{content_data.blogs.0._id}}" method="post">
-                        <div class="commentForm">
-                            <input type="text" name="comment" placeholder="Add a comment ....">
-                            <button type="submit" class="push">
-                                <i class="ri-arrow-right-circle-fill"></i>
-                            </button>    
+                        <div class="commentSection">
+                            <div class="commentForm">
+                                <input type="text" name="comment" placeholder="Add a comment ....">
+                                <button type="submit" class="push">
+                                    <i class="ri-arrow-right-circle-fill"></i>
+                                </button>   
+                            </div>
+                            <div class="commentRole">
+                                <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
+                                <p>post as anonymous?</p> 
+                            </div>
                         </div>
                     </form>  
                 </div>  
