@@ -69,9 +69,16 @@
 
                     </div>
 
-                    <div id="imgUploaded" style="border: none;">                    
-                        <img id="img" style="display: block;" src="{{img}}">
-                    </div>
+                    {{#if (eq img "")}}
+                        <div id="imgUploaded" style="border: none; visibility: hidden;">
+                            <img id="img" style="visibility: hidden" src="{{img}}">             
+                        </div>
+                    {{else}}
+                        <div id="imgUploaded" style="border: none;">
+                            <img id="img" style="display: block;" src="{{img}}">        
+                        </div>
+                    {{/if}}
+                    
 
                 </div>
             {{/each}}

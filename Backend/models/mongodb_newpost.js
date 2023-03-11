@@ -22,6 +22,7 @@ const PostSchema = new mongoose.Schema({
             comments: [{
                 avatar: String,
                 name : String,
+                time: String,
                 comment : String,
             }]
         }

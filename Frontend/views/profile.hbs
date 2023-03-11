@@ -126,14 +126,19 @@
                                     </div> --}}
                                 </form> 
 
-                                
-
                             </div>
                         </div>
                         <p class="contents">{{content}}</p>
-                        <div class="content-img">
-                            <img src="{{img}}">
-                        </div>
+                        {{#if (eq img "")}}
+                            <div class="content-img" style="height:10%">
+                                <img src="{{img}}" style="visibility: hidden;">
+                            </div>
+                        {{else}}
+                            <div class="content-img">
+                                <img src="{{img}}">
+                            </div>
+                        {{/if}}
+                        
                         <div class="somecomments">
                             {{#if comments}} 
                                 {{#each comments}}

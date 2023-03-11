@@ -53,7 +53,7 @@ exports.postcontent = async (req, res) => {
     let minutes = date_ob.getMinutes();
     let seconds = date_ob.getSeconds();
     let dateformat = year + "-" + month + "-" + date
-    let timeformt = hours + ":" + minutes + ":" + seconds
+    let timeformat = hours + ":" + minutes + ":" + seconds
 
     session = req.session
 
@@ -90,7 +90,7 @@ exports.postcontent = async (req, res) => {
             "content": req.body.content,
             "img": req.body.imageUrl,
             "date": dateformat,
-            "time": timeformt,
+            "time": timeformat,
             "as": department,
         }]
 
@@ -134,59 +134,71 @@ exports.postcontent = async (req, res) => {
 exports.editpost = async (req, res) => {
     session = req.session
 
-    const post = await posts.findOne(
-        { "_id": req.params.blogid, "blogs._id": req.params._id },
-        { "blogs.$": 1 }
-    );
+    try {
+        const post = await posts.findOne(
+            { "_id": req.params.blogid, "blogs._id": req.params._id },
+            { "blogs.$": 1 }
+        );
+        // console.log("========", post, post.blogs, post.blogs.name)
 
-    console.log("========", post, post.blogs, post.blogs.name)
-
-    res.render("editpost" , {userid: session.userid, _id: req.params.blogid, blogid: req.params._id, contents_data: post})
+        res.render("editpost" , {userid: session.userid, _id: req.params.blogid, blogid: req.params._id, contents_data: post})
+        
+    } catch (error) {
+        res.send(error)
+    }
+    
 }
 
 exports.edited = async (req, res) => {
     console.log(req.params._id)
     const blogId = req.params.blogid
     const userpostId = req.params._id
-    
-    const check_user = await users.findOne({email: session.userid})
-    const post = await posts.findOne({ _id: userpostId });
 
-    const name = check_user.name
-    
-    if (!post) {
-        console.log(`Post with id ${userpostId} not found.`);
-        return;
-    }else{
-        console.log(`Post with id ${userpostId} be found.`);
+    try {
+
+        const check_user = await users.findOne({email: session.userid})
+        const post = await posts.findOne({ _id: userpostId });
+
+        const name = check_user.name
+        
+        if (!post) {
+            console.log(`Post with id ${userpostId} not found.`);
+            return;
+        }else{
+            console.log(`Post with id ${userpostId} be found.`);
+        }
+
+        const result = await posts.updateOne(
+            { "_id": userpostId, "blogs._id": blogId },
+            { $set: { "blogs.$.content": req.body.content } }
+        );
+        
+        console.log(result);
+        
+        res.redirect("/profile/:userid")
+        
+    } catch (error) {
+        res.send(error)
     }
-
-    const result = await posts.updateOne(
-        { "_id": userpostId, "blogs._id": blogId },
-        { $set: { "blogs.$.content": req.body.content } }
-      );
     
-    console.log(result);
-      
-    res.redirect("/profile/:userid")
+    
 }
 
 exports.deletePost = async (req, res) => {
-    
-    var userpostId = req.params.blogid
-    var blogId = req.params._id
-    var post = await posts.findOne({ _id: userpostId });
-    
-    
-    if (!post) {
-        console.log(`Post with id is not found.`);
-        return;
-    }
 
-    console.log(post)
-    console.log(userpostId, blogId)
+    // console.log(post)
+    // console.log(userpostId, blogId)
 
     try {
+        var userpostId = req.params.blogid
+        var blogId = req.params._id
+        var post = await posts.findOne({ _id: userpostId });
+        
+        
+        if (!post) {
+            console.log(`Post with id is not found.`);
+            return;
+        }
         if(post.blogs.length > 1){
             console.log(userpostId, blogId)
             const result = await posts.updateOne(
@@ -217,54 +229,83 @@ exports.deletePost = async (req, res) => {
 exports.commentpostpage = async (req, res) => {
     session = req.session
 
-    const post = await posts.findOne({ user: req.params.email});
-    const user = await users.findOne({email: session.userid})
-    const blogId = post._id
+    try {
 
-    const realpost = await posts.findOne(
-        { "_id": blogId, "blogs._id": req.params._id },
-        { "blogs.$": 1 }
-    );
+        const post = await posts.findOne({ user: req.params.email});
+        const user = await users.findOne({email: session.userid})
+        const blogId = post._id
 
-    console.log(realpost)
+        const realpost = await posts.findOne(
+            { "_id": blogId, "blogs._id": req.params._id },
+            { "blogs.$": 1 }
+        );
 
-    res.render('comment', {content_data: realpost, userid: user._id, email: req.params.email, blogid: blogId})
+        // console.log(realpost.blogs[0].comments.reverse())
+        comments = realpost.blogs[0].comments.reverse()
+
+        res.render('comment', {content_data: realpost, comments_data: comments, userid: user._id, email: req.params.email, blogid: blogId})
+        
+    } catch (error) {
+        res.send(error)
+    }
+
+    
 }
 
 exports.comment = async (req, res) => {
 
     session = req.session
 
-    const userpostId = req.params._id
-    const user = await users.findOne({email: session.userid})
-    var post = await posts.findOne({ user: req.params.email});
-    const blogId = post._id
-    var commentrole
-    var avatar
+    try {
+        let date_ob = new Date();
+        let date = ("0" + date_ob.getDate()).slice(-2);
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+        let year = date_ob.getFullYear();
+        let hours = date_ob.getHours();
+        let minutes = date_ob.getMinutes();
+        let seconds = date_ob.getSeconds();
+        let dateformat = year + "-" + month + "-" + date
+        let timeformat = dateformat + " " + hours + ":" + minutes + ":" + seconds
+        
+        const userpostId = req.params._id
+        const user = await users.findOne({email: session.userid})
+        var post = await posts.findOne({ user: req.params.email});
+        const blogId = post._id
+        var commentrole
+        var avatar
+        
+        if (!post) {
+            console.log(`Post with id is not found.`);
+            return;
+        }
     
-    if (!post) {
-        console.log(`Post with id is not found.`);
-        return;
+        if(req.body.anonymous == "anonymous") {
+            commentrole = "anonymous"
+            avatar = "https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png"
+        }else{
+            commentrole = user.name
+            avatar = user.avatar
+        }
+        
+        const comment = [{
+            "avatar": avatar,
+            "name": commentrole,
+            "time": timeformat,
+            "comment": req.body.comment,
+        }]
+
+        console.log(comment)
+    
+        await posts.updateOne(
+            { "_id": blogId, "blogs._id": userpostId },
+            { $push: { "blogs.$.comments": comment } },
+        ); 
+    
+        res.redirect('back')
+        
+    } catch (error) {
+        res.send(error)
     }
 
-    if(req.body.anonymous == "anonymous") {
-        commentrole = "anonymous"
-        avatar = "https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png"
-    }else{
-        commentrole = user.name
-        avatar = user.avatar
-    }
-    
-    const comment = [{
-        "avatar": avatar,
-        "name": commentrole,
-        "comment": req.body.comment,
-    }]
-
-    await posts.updateOne(
-        { "_id": blogId, "blogs._id": userpostId },
-        { $push: { "blogs.$.comments": comment } },
-    ); 
-
-    res.redirect('back')
+   
 }

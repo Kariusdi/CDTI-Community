@@ -91,8 +91,8 @@
 
                 <div class="comment-section">
                     <div class="comment-container">
-                        {{#if content_data.blogs.0.comments}}
-                            {{#each content_data.blogs.0.comments}}         
+                        {{#if comments_data}}
+                            {{#each comments_data}}         
                                 <div class="each-comment">
                                     <div class="user-comment">
                                         <div class="avatar-comment">
@@ -100,6 +100,7 @@
                                         </div>
                                         <div class="comment-data">
                                             <p style="font-size: 22px; font-weight: bold;">{{name}}</p>
+                                            <p style="font-size: 13px; color:gray">{{time}}</p>
                                             <p style="margin-top: 7px;">{{comment}}</p>
                                         </div>
                                     </div>
