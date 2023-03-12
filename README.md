@@ -10,6 +10,10 @@ https://docs.google.com/spreadsheets/d/1DnR_jVkgarwHYrRAVJbLdsO2l2AfGxgZDhwj4Uvx
 https://docs.google.com/document/d/1_0lx6yL6T35bPq1rVvICq0lVcjZOVn6P6GaKxkJW5eU/edit
 <br/>
 
+<h2>Presentation</h2>
+https://drive.google.com/file/d/1fuFydjcRFSpVn3lsUG1Tfcu0SmoRtCLN/view?usp=sharing
+<br/>
+
 <h3>Running website with</h3>
 <uo>
     <li>cd Backend</li>
