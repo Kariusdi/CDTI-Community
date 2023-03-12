@@ -3,30 +3,18 @@ const bcrypt = require("bcrypt")
 
 const AdminSchema = new mongoose.Schema({
 
-    name:{
-        type: String,
-        require: true,
-    },
-    department: {
-        type: String,
-        require: true,
-    },
     email:{
         type: String,
-        require: true
+        require: true,
     },
     password:{
         type: String,
         require: true
     },
-    avatar:{
-        type: String,
-        require: true
-    }
 
 })
 
-UserSchema.pre('save', function(next) {
+AdminSchema.pre('save', function(next) {
     if(this.isModified('password')){
         bcrypt.hash(this.password, 8, (err, hash) => {
             if(err) return next(err)
@@ -36,7 +24,7 @@ UserSchema.pre('save', function(next) {
     }
 })
 
-UserSchema.methods.comparePassword = async function (password) {
+AdminSchema.methods.comparePassword = async function (password) {
     
     if(!password) throw new Error('Password is missing, can not compare')
 
@@ -48,5 +36,5 @@ UserSchema.methods.comparePassword = async function (password) {
     }
 }
 
-const collection = new mongoose.model("UserAccount", UserSchema)
+const collection = new mongoose.model("admin", AdminSchema)
 module.exports = collection

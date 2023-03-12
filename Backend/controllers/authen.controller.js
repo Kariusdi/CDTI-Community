@@ -1,4 +1,5 @@
 const users = require("../models/mongodb_authen.js")
+const admins = require("../models/mongodb_admin")
 var session;
 
 exports.login = (req, res) => {
@@ -51,22 +52,32 @@ exports.initlogin = async (req, res) => {
 
     try{
         const user = await users.findOne({email: req.body.email})
+        const admin = await admins.findOne({email: req.body.email})
 
-        const isMatched = await user.comparePassword(req.body.password);
+        if(user){
+            const isMatched = await user.comparePassword(req.body.password);
 
-        if(isMatched && user.email == req.body.email){
-            session = req.session
-            session.userid = req.body.email
-            console.log(req.body.email, "has logged in.")
-            // console.log(check.name)
-            // console.log(req.session)
-            // console.log(session.userid)
-            res.redirect('/')
+            if(isMatched && user.email == req.body.email){
+                session = req.session
+                session.userid = req.body.email
+                console.log(req.body.email, "has logged in.")
+                res.redirect('/')
+            }else{
+                res.render("login", {error_msg: "Email or password is incorrect, please try again."})
+            }
         }else{
-            res.render("login", {error_msg: "Email or password is incorrect, please try again."})
+            const isMatched = await admin.comparePassword(req.body.password);
+
+            if(isMatched && admin.email == req.body.email){
+                session = req.session
+                session.userid = req.body.email
+                console.log(req.body.email, "has logged in.")
+                res.redirect('/')
+            }else{
+                res.render("login", {error_msg: "Email or password is incorrect, please try again."})
+            }
         }
 
-        
     }
     catch{
         res.render("login", {error_msg: "Invalid, username or password."})
