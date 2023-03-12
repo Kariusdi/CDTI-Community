@@ -79,7 +79,8 @@ exports.initlogin = async (req, res) => {
         }
 
     }
-    catch{
+    catch(error){
+        console.log(error)
         res.render("login", {error_msg: "Invalid, username or password."})
     }
 

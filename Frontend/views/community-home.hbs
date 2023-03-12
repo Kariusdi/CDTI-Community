@@ -60,13 +60,16 @@
                     </li>
                 {{/if}}
             {{/if}}
-            
-            <li>
-                <a href="/post">
-                <i class="ri-chat-upload-fill"></i>
-                <span class="navtext">   Post</span>
-                </a>
-            </li>
+
+            {{#if userid}}
+                <li>
+                    <a href="/post">
+                    <i class="ri-chat-upload-fill"></i>
+                    <span class="navtext">   Post</span>
+                    </a>
+                </li>
+            {{/if}}
+        
             <li>
                 <a href="/logout">
                 <i class="ri-logout-box-fill"></i>
@@ -76,10 +79,12 @@
 
         </ul>
 
-        <div class="account">
-            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
-            <div class="bx bx-menu" id="menu-icon"></div>
-        </div>
+        {{#if userid}}
+            <div class="account">
+                <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
+                <div class="bx bx-menu" id="menu-icon"></div>
+            </div>
+        {{/if}}
         
     </header>
 
@@ -110,7 +115,12 @@
 
                                 <div class="profileinfo">
                                     {{#if (eq postAs "anonymous")}}
-                                        <p class="name">{{postAs}}</p>
+                                        {{#if ../userid}}
+                                            <p class="name">{{postAs}}</p>
+                                        {{else}}
+                                            <p class="name">{{name}} <h4 class="dpe">#{{department}}</h4></p>
+                                        {{/if}}
+                                        {{!-- <p class="name">{{postAs}}</p> --}}
                                     {{else}}
                                         <p class="name">{{postAs}} <h4 class="dpe">#{{department}}</h4></p>
                                     {{/if}}

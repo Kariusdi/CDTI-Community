@@ -106,26 +106,29 @@
                                     </div>
                                 </div> 
                             {{/each}} 
-                        {{!-- {{else}}
-                            <p>No comments yet</p>     --}}
+                        {{else}}
+                            <p>No comments yet</p>    
                         {{/if}}
                     </div> 
                         
+                    {{#if admin}}
                         
-                    <form action="/comment/{{email}}/{{content_data.blogs.0._id}}" method="post">
-                        <div class="commentSection">
-                            <div class="commentForm">
-                                <input type="text" name="comment" placeholder="Add a comment ....">
-                                <button type="submit" class="push">
-                                    <i class="ri-arrow-right-circle-fill"></i>
-                                </button>   
+                    {{else}} 
+                        <form action="/comment/{{email}}/{{content_data.blogs.0._id}}" method="post">
+                            <div class="commentSection">
+                                <div class="commentForm">
+                                    <input type="text" name="comment" placeholder="Add a comment ....">
+                                    <button type="submit" class="push">
+                                        <i class="ri-arrow-right-circle-fill"></i>
+                                    </button>   
+                                </div>
+                                <div class="commentRole">
+                                    <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
+                                    <p>post as anonymous?</p> 
+                                </div>
                             </div>
-                            <div class="commentRole">
-                                <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
-                                <p>post as anonymous?</p> 
-                            </div>
-                        </div>
-                    </form>  
+                        </form>  
+                    {{/if}}
                 </div>  
             </div>  
         {{else}}

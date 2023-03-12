@@ -183,9 +183,6 @@ exports.edited = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
 
-    // console.log(post)
-    // console.log(userpostId, blogId)
-
     try {
         var userpostId = req.params.blogid
         var blogId = req.params._id
@@ -228,7 +225,7 @@ exports.commentpostpage = async (req, res) => {
 
     try {
 
-        const post = await posts.findOne({ user: req.params.email});
+        const post = await posts.findOne({user: req.params.email});
         const user = await users.findOne({email: session.userid})
         const blogId = post._id
 
@@ -237,10 +234,13 @@ exports.commentpostpage = async (req, res) => {
             { "blogs.$": 1 }
         );
 
-        // console.log(realpost.blogs[0].comments.reverse())
         comments = realpost.blogs[0].comments.reverse()
 
-        res.render('comment', {content_data: realpost, comments_data: comments, userid: user._id, email: req.params.email, blogid: blogId})
+        if(user){
+            res.render('comment', {content_data: realpost, comments_data: comments, userid: user._id, email: req.params.email, blogid: blogId})
+        }else{
+            res.render('comment', {content_data: realpost, comments_data: comments, email: req.params.email, blogid: blogId, admin: "admin"})
+        }
         
     } catch (error) {
         res.send(error)
