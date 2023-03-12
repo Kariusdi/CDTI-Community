@@ -204,7 +204,7 @@ main h2 {
     height: 20%;
     background: linear-gradient(
         -45deg, #EDE9D5 60%, rgba(0, 0, 0, 0) 30%), 
-        #617143 40%;
+        #DF7857 40%;
     text-align: center;
     margin: auto;
     padding: 10px;
@@ -282,6 +282,10 @@ main h2 {
 .see-container {
     float: right;
     margin-top: 1rem;
+}
+
+.dpe {
+    color: rgb(158, 158, 158);
 }
 
 input[type=text], select {

@@ -203,7 +203,7 @@ main h2 {
 .greetings-box {
     height: 20%;
     background: linear-gradient(
-        -45deg, #EDE9D5 60%, rgba(0, 0, 0, 0) 30%), 
+        -45deg, whitesmoke 60%, rgba(0, 0, 0, 0) 30%), 
         #E7AB9A 40%;
     text-align: center;
     margin: auto;
@@ -358,6 +358,10 @@ input[type=text]:focus {
         padding: 5px 0;
         margin: 0px 30px;
     }
+}
+
+.dpe {
+    color: rgb(158, 158, 158);
 }
 
 @media screen and (max-width: 768px) {

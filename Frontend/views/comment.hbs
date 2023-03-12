@@ -99,7 +99,11 @@
                                             <img src = "{{avatar}}">
                                         </div>
                                         <div class="comment-data">
-                                            <p style="font-size: 22px; font-weight: bold;">{{name}}</p>
+                                            {{#if ../admin}}
+                                                <p style="font-size: 22px; font-weight: bold;">{{name}}</p>
+                                            {{else}}
+                                                <p style="font-size: 22px; font-weight: bold;">{{commentAs}}</p>   
+                                            {{/if}}
                                             <p style="font-size: 13px; color:gray">{{time}}</p>
                                             <p style="margin-top: 7px;">{{comment}}</p>
                                         </div>
@@ -107,7 +111,7 @@
                                 </div> 
                             {{/each}} 
                         {{else}}
-                            <p>No comments yet</p>    
+                            <p style="margin-left: 1rem;">No comments yet</p>    
                         {{/if}}
                     </div> 
                         

@@ -87,8 +87,6 @@ exports.initlogin = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    // await users("useraccounts").insertOne(req.session.cookie._expires.toString())
     req.session.destroy()
-    console.log(req.session)
     res.redirect('/')
 }

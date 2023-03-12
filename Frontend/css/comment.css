@@ -177,7 +177,7 @@ main {
 
 .comment-container {
     overflow: auto;
-    max-height: 50%;
+    height: 350px;
 }
 
 .comments-box {
@@ -266,6 +266,15 @@ input[type=text]:focus {
 
 .commentRole p {
     margin-left: 10px;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.time {
+    color: gray;
 }
 
 @media screen and (max-width: 1280px) {

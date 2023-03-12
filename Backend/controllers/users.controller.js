@@ -286,7 +286,8 @@ exports.comment = async (req, res) => {
         
         const comment = [{
             "avatar": avatar,
-            "name": commentrole,
+            "name": user.name,
+            "commentAs": commentrole,
             "time": timeformat,
             "comment": req.body.comment,
         }]
