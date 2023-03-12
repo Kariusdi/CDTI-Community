@@ -14,9 +14,13 @@ exports.inituser = async (req, res) => {
     const data = {name, department, email, password, avatar} = req.body;
 
     try{
-        const check = await users.findOne({email: email})
+        const check_user = await users.findOne({email: email})
+        const regex = /^\d+@cdti+\.ac.th$/;
 
-        if(check == null && name != '' && email != '' && password != ''){
+        if(!regex.test(email)){
+            res.render("signup", {error_msg: "Please use CDTI email."})
+        }
+        else if(check_user == null && name != '' && email != '' && password != '' && regex.test(email)){
             const user = await users({
                 name,
                 department,
@@ -46,11 +50,11 @@ exports.inituser = async (req, res) => {
 exports.initlogin = async (req, res) => {
 
     try{
-        const check = await users.findOne({email: req.body.email})
+        const user = await users.findOne({email: req.body.email})
 
-        const isMatched = await check.comparePassword(req.body.password);
+        const isMatched = await user.comparePassword(req.body.password);
 
-        if(isMatched && check.email == req.body.email){
+        if(isMatched && user.email == req.body.email){
             session = req.session
             session.userid = req.body.email
             console.log(req.body.email, "has logged in.")

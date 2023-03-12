@@ -20,7 +20,7 @@ exports.home = async (req, res) => {
                     // console.log(contents_data);
                     for (var blogs of contents_data.blogs) {
                         // console.log(blogs);
-                        if(blogs.as == "public"){
+                        if(blogs.postTo == "public"){
                             contents_sorted.push(blogs)
                         }
                     }
@@ -64,7 +64,7 @@ exports.CPEhome = async (req, res) => {
                     // console.log(contents_data);
                     for (var blogs of contents_data.blogs) {
                         // console.log(blogs);
-                        if(blogs.as == "CPE"){
+                        if(blogs.postTo == "CPE"){
                             contents_sorted.push(blogs)
                         }
                     }
@@ -106,7 +106,7 @@ exports.DDThome = async (req, res) => {
                     // console.log(contents_data);
                     for (var blogs of contents_data.blogs) {
                         // console.log(blogs);
-                        if(blogs.as == "DDT"){
+                        if(blogs.postTo == "DDT"){
                             contents_sorted.push(blogs)
                         }
                     }

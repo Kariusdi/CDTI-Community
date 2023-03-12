@@ -2,10 +2,6 @@ const posts = require("../models/mongodb_newpost.js")
 const users = require("../models/mongodb_authen.js")
 var session;
 
-exports.profile = (req, res) => {
-    res.render("profile")
-}
-
 exports.getUser_and_Posts = async (req, res) => {
     session = req.session
 
@@ -61,37 +57,38 @@ exports.postcontent = async (req, res) => {
         const check_user = await users.findOne({email: session.userid})
         const check_posts = await posts.findOne({user: session.userid})
 
-        var name;
+        var role;
         var avatar;
-        var department;
+        var postTo;
         const user = session.userid
 
         if(req.body.anonymous == "anonymous") {
-            name = "anonymous"
+            role = "anonymous"
             avatar = "https://sv1.picz.in.th/images/2023/02/15/L6B2Xu.png"
         }else{
-            name = check_user.name
+            role = check_user.name
             avatar = check_user.avatar
         }
 
         if(req.body.cpe == "cpe"){
-            department = "CPE"
+            postTo = "CPE"
         }else if(req.body.ddt == "ddt"){
-            department = "DDT"
+            postTo = "DDT"
         }else{
-            department = "public"
+            postTo = "public"
         }
 
         const blogs = [{
             "avatar": avatar,
-            "name": name,
+            "name": check_user.name,
             "department": check_user.department,
             "email": check_user.email,
             "content": req.body.content,
             "img": req.body.imageUrl,
             "date": dateformat,
             "time": timeformat,
-            "as": department,
+            "postAs": role,
+            "postTo": postTo,
         }]
 
             if(req.body.content != ''){
@@ -125,8 +122,8 @@ exports.postcontent = async (req, res) => {
             }
         
         
-    }catch{
-        res.send('Something went wrong')
+    }catch (error){
+        res.send('Something went wrong', error)
     }
 
 }

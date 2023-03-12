@@ -18,7 +18,8 @@ const PostSchema = new mongoose.Schema({
             img : String,
             date : String,
             time : String,
-            as : String,
+            postAs: String,
+            postTo : String,
             comments: [{
                 avatar: String,
                 name : String,

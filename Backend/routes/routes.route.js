@@ -2,8 +2,7 @@ module.exports = (app) => {
     const community = require("../controllers/home.controller")
     const authen = require("../controllers/authen.controller")
     const pagenotfound = require("../controllers/404.controller")
-    const chat = require("../controllers/chat.controller")
-    const user_activities = require("../controllers/useractivites.controller")
+    const user_activities = require("../controllers/users.controller")
     // app.get('/login', authen.login)
     app.get('/', community.home)
     app.get('/CPE', community.CPEhome)
@@ -24,8 +23,6 @@ module.exports = (app) => {
 
     app.get('/commentpostpage/:email/:_id', user_activities.commentpostpage)
     app.post('/comment/:email/:_id', user_activities.comment)
-    
-    app.get('/chat', chat.chathome)
 
     app.get('*', pagenotfound.error)
 

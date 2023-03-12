@@ -87,16 +87,16 @@
                     <div class="post-box">
                         <div class="post-boxHeader">
                             <div class="textHeader">
-                                <p class="name">{{name}}</p>
-                                {{#if (eq as "public")}}
+                                <p class="name">{{postAs}}</p>
+                                {{#if (eq postTo "public")}}
                                     <div class="as">
                                         <i class="ri-earth-fill"></i>
-                                        <p class="role">{{as}}</p>
+                                        <p class="role">{{postTo}}</p>
                                     </div>
                                 {{else}}
                                     <div class="as">
                                         <i class="ri-user-fill"></i>
-                                        <p class="role">{{as}}</p>
+                                        <p class="role">{{postTo}}</p>
                                     </div>
                                 {{/if}}
                                 
