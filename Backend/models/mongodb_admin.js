@@ -11,6 +11,10 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    name:{
+        type: String,
+        require: true,
+    },
 
 })
 

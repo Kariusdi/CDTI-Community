@@ -52,7 +52,7 @@ exports.initlogin = async (req, res) => {
 
     try{
         const user = await users.findOne({email: req.body.email})
-        const admin = await admins.findOne({email: req.body.email})
+        const admin = await admins.findOne({name: req.body.email})
 
         if(user){
             const isMatched = await user.comparePassword(req.body.password);
@@ -68,7 +68,7 @@ exports.initlogin = async (req, res) => {
         }else{
             const isMatched = await admin.comparePassword(req.body.password);
 
-            if(isMatched && admin.email == req.body.email){
+            if(isMatched && admin.name == req.body.email){
                 session = req.session
                 session.userid = req.body.email
                 console.log(req.body.email, "has logged in.")

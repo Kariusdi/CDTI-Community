@@ -38,12 +38,27 @@
                     </a>
                 </li>
             {{else}}
-                <li>
-                    <a href="/DDT">
-                    <i class="ri-brush-fill"></i>
-                    <span class="navtext">   DDT</span>
-                    </a>
-                </li>
+                {{#if (eq account.department "DDT")}}
+                    <li>
+                        <a href="/DDT">
+                        <i class="ri-brush-fill"></i>
+                        <span class="navtext">   DDT</span>
+                        </a>
+                    </li>
+                {{else}}   
+                    <li>
+                        <a href="/CPE">
+                        <i class="ri-computer-fill"></i>
+                        <span class="navtext">   CPE</span>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="/DDT">
+                        <i class="ri-brush-fill"></i>
+                        <span class="navtext">   DDT</span>
+                        </a>
+                    </li>
+                {{/if}}
             {{/if}}
             
             <li>
@@ -71,7 +86,7 @@
     <main>
 
         <div class="greetings-box">
-            {{#if userid}}
+            {{#if account}}
                 <p class="user">Welcome, {{ account.name }}</p>
                 <p class="greetings">Enjoy our community. Please use as polite as you can.</p>
             {{else}}
