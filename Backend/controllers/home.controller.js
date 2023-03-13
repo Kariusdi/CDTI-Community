@@ -72,6 +72,7 @@ exports.home = async (req, res) => {
     
                     res.render("community-home", {
                         account: admin,
+                        admin: "admin",
                         contents_data: contents_sorted.reverse(),
                     })
                 }
@@ -153,6 +154,7 @@ exports.CPEhome = async (req, res) => {
     
                     res.render("CPE", {
                         account: admin,
+                        admin: "admin",
                         contents_data: contents_sorted.reverse(),
                     })
                 }
@@ -232,6 +234,7 @@ exports.DDThome = async (req, res) => {
     
                     res.render("DDT", {
                         account: admin,
+                        admin: "admin",
                         contents_data: contents_sorted.reverse(),
                     })
                 }

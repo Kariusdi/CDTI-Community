@@ -57,10 +57,12 @@
 
         </ul>
 
-        <div class="account">
-            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
-            <div class="bx bx-menu" id="menu-icon"></div>
-        </div>
+        {{#if userid}}
+            <div class="account">
+                <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
+                <div class="bx bx-menu" id="menu-icon"></div>
+            </div>
+        {{/if}}
     </header>
     <main>
         {{#if content_data}}
