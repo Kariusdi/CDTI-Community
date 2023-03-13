@@ -237,9 +237,9 @@ exports.commentpostpage = async (req, res) => {
         comments = realpost.blogs[0].comments.reverse()
 
         if(user){
-            res.render('comment', {content_data: realpost, comments_data: comments, userid: user._id, email: req.params.email, blogid: blogId})
+            res.render('comment', {account: user, content_data: realpost, comments_data: comments, userid: user._id, email: req.params.email, blogid: blogId})
         }else{
-            res.render('comment', {content_data: realpost, comments_data: comments, email: req.params.email, blogid: blogId, admin: "admin"})
+            res.render('comment', {account: user, content_data: realpost, comments_data: comments, email: req.params.email, blogid: blogId, admin: "admin"})
         }
         
     } catch (error) {
@@ -283,6 +283,7 @@ exports.comment = async (req, res) => {
             commentrole = user.name
             avatar = user.avatar
         }
+
         
         const comment = [{
             "avatar": avatar,
@@ -293,13 +294,18 @@ exports.comment = async (req, res) => {
         }]
 
         console.log(comment)
-    
-        await posts.updateOne(
-            { "_id": blogId, "blogs._id": userpostId },
-            { $push: { "blogs.$.comments": comment } },
-        ); 
-    
+
+        if(req.body.comment && /\S/.test(req.body.comment)){
+            await posts.updateOne(
+                { "_id": blogId, "blogs._id": userpostId },
+                { $push: { "blogs.$.comments": comment } },
+            ); 
+        }
+            
         res.redirect('back')
+        
+    
+        
         
     } catch (error) {
         res.send(error)

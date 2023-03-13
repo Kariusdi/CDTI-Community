@@ -16,25 +16,26 @@ exports.home = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "public"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "public"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+                    contents_sorted = sort_content(contents, "public")
     
                     res.render("community-home", {
                         account: user,
@@ -50,25 +51,26 @@ exports.home = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "public"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "public"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+                    contents_sorted = sort_content(contents, "public")
     
                     res.render("community-home", {
                         account: admin,
@@ -98,25 +100,27 @@ exports.CPEhome = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "CPE"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "CPE"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+
+                    contents_sorted = sort_content(contents, "CPE")
     
                     res.render("CPE", {
                         account: user,
@@ -132,25 +136,26 @@ exports.CPEhome = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "CPE"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "CPE"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+                    contents_sorted = sort_content(contents, "CPE")
     
                     res.render("CPE", {
                         account: admin,
@@ -178,25 +183,26 @@ exports.DDThome = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "DDT"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "DDT"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+                    contents_sorted = sort_content(contents, "DDT")
     
                     res.render("DDT", {
                         account: user,
@@ -212,25 +218,26 @@ exports.DDThome = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    var contents_sorted = []
+                    // var contents_sorted = []
                 
-                    for (var contents_data of contents) {
-                        // console.log(contents_data);
-                        for (var blogs of contents_data.blogs) {
-                            // console.log(blogs);
-                            if(blogs.postTo == "DDT"){
-                                contents_sorted.push(blogs)
-                            }
-                        }
-                    }
+                    // for (var contents_data of contents) {
+                    //     // console.log(contents_data);
+                    //     for (var blogs of contents_data.blogs) {
+                    //         // console.log(blogs);
+                    //         if(blogs.postTo == "DDT"){
+                    //             contents_sorted.push(blogs)
+                    //         }
+                    //     }
+                    // }
     
-                    contents_sorted.sort((a, b) => {
-                        const dateComparison = a.date.localeCompare(b.date);
-                        if (dateComparison !== 0) {
-                          return dateComparison;
-                        }
-                        return a.time.localeCompare(b.time);
-                    });
+                    // contents_sorted.sort((a, b) => {
+                    //     const dateComparison = a.date.localeCompare(b.date);
+                    //     if (dateComparison !== 0) {
+                    //       return dateComparison;
+                    //     }
+                    //     return a.time.localeCompare(b.time);
+                    // });
+                    contents_sorted = sort_content(contents, "DDT")
     
                     res.render("DDT", {
                         account: admin,
@@ -244,4 +251,28 @@ exports.DDThome = async (req, res) => {
         
     }else
         res.render("login")
+}
+
+function sort_content(contents, page) {
+    var contents_sorted = []
+                
+    for (var contents_data of contents) {
+        // console.log(contents_data);
+        for (var blogs of contents_data.blogs) {
+            // console.log(blogs);
+            if(blogs.postTo == page){
+                contents_sorted.push(blogs)
+            }
+        }
+    }
+
+    contents_sorted.sort((a, b) => {
+        const dateComparison = a.date.localeCompare(b.date);
+        if (dateComparison !== 0) {
+            return dateComparison;
+        }
+        return a.time.localeCompare(b.time);
+    });
+
+    return contents_sorted
 }

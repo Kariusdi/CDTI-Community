@@ -323,7 +323,7 @@ button[type=submit], select {
 .somecomments {
     margin-top: 1rem;
     max-height: 200px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 
