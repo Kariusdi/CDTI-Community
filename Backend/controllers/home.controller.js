@@ -15,26 +15,7 @@ exports.home = async (req, res) => {
                 if(err) {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
-    
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "public"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
+
                     contents_sorted = sort_content(contents, "public")
     
                     res.render("community-home", {
@@ -50,26 +31,7 @@ exports.home = async (req, res) => {
                 if(err) {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
-    
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "public"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
+
                     contents_sorted = sort_content(contents, "public")
     
                     res.render("community-home", {
@@ -99,26 +61,6 @@ exports.CPEhome = async (req, res) => {
                 if(err) {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
-    
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "CPE"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
 
                     contents_sorted = sort_content(contents, "CPE")
     
@@ -136,25 +78,6 @@ exports.CPEhome = async (req, res) => {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
     
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "CPE"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
                     contents_sorted = sort_content(contents, "CPE")
     
                     res.render("CPE", {
@@ -182,26 +105,7 @@ exports.DDThome = async (req, res) => {
                 if(err) {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
-    
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "DDT"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
+
                     contents_sorted = sort_content(contents, "DDT")
     
                     res.render("DDT", {
@@ -217,26 +121,7 @@ exports.DDThome = async (req, res) => {
                 if(err) {
                     console.log('Failed to retrieve contents: ' + err)
                 }else{
-    
-                    // var contents_sorted = []
-                
-                    // for (var contents_data of contents) {
-                    //     // console.log(contents_data);
-                    //     for (var blogs of contents_data.blogs) {
-                    //         // console.log(blogs);
-                    //         if(blogs.postTo == "DDT"){
-                    //             contents_sorted.push(blogs)
-                    //         }
-                    //     }
-                    // }
-    
-                    // contents_sorted.sort((a, b) => {
-                    //     const dateComparison = a.date.localeCompare(b.date);
-                    //     if (dateComparison !== 0) {
-                    //       return dateComparison;
-                    //     }
-                    //     return a.time.localeCompare(b.time);
-                    // });
+
                     contents_sorted = sort_content(contents, "DDT")
     
                     res.render("DDT", {
