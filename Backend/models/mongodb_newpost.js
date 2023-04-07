@@ -16,7 +16,7 @@ const PostSchema = new mongoose.Schema({
             email : String,
             content : String,
             img : String,
-            date : String,
+            postDate : String,
             time : String,
             postAs : String,
             postTo : String,

@@ -152,7 +152,7 @@ function sort_content(contents, page) {
     }
 
     contents_sorted.sort((a, b) => {
-        const dateComparison = a.date.localeCompare(b.date);
+        const dateComparison = a.postDate.localeCompare(b.postDate);
         if (dateComparison !== 0) {
             return dateComparison;
         }

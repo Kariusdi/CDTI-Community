@@ -85,7 +85,7 @@ exports.postcontent = async (req, res) => {
             "email": check_user.email,
             "content": req.body.content,
             "img": req.body.imageUrl,
-            "date": dateformat,
+            "postDate": dateformat,
             "time": timeformat,
             "postAs": role,
             "postTo": postTo,
