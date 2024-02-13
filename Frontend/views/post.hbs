@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/post.css">
+    <title>Post page</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="ri-community-line"></i>
+            <span>CDTI Community Board</span>
+        </div>
+        
+
+        <ul class="navbar">
+            
+            <li>
+                <a href="/">
+                <i class="ri-home-fill"></i>
+                <span class="navtext">   Home</span>
+                </a>
+            </li>
+            {{#if (eq account.department "CPE")}}
+                <li>
+                    <a href="/CPE">
+                    <i class="ri-computer-fill"></i>
+                    <span class="navtext">   CPE</span>
+                    </a>
+                </li>
+            {{else}}
+                <li>
+                    <a href="/DDT">
+                    <i class="ri-brush-fill"></i>
+                    <span class="navtext">   DDT</span>
+                    </a>
+                </li>
+            {{/if}}
+            <li>
+                <a href="/post">
+                <i class="ri-chat-upload-fill"></i>
+                <span class="navtext">   Post</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                <i class="ri-logout-box-fill"></i>
+                <span class="navtext">   Log out</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="account">
+            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+        
+    </header>
+
+    <main>
+
+        <div class="parent">
+
+            <div class="container">
+                <div class="profileBox">
+                    <div class="profilepicture">
+                        <img src="{{account.avatar}}" alt="">
+                    </div>
+                    <div class="profileinfo">
+                        <h1>{{ account.name }}</h1>
+                        <p>Make your blog</p>
+                    </div>
+
+                </div>
+
+                <div id="imgUploaded">
+
+                    <input 
+                        type="file" 
+                        class="inputFile" 
+                        id="fileInp" 
+                        onchange="getfile(event)"
+                        accept="image/png, image/jpeg"
+                    />
+                        
+                    
+                    <label id="plus" for="fileInp">+<p>Add image</p></label>
+                    <span class="fileText"></span>
+
+                    
+                    <img id="img">
+
+                </div>
+
+            </div>
+        
+            <div class="content">
+                <form action="/post-content" method="post">
+                    <textarea class="blog" maxlength="500" placeholder="What's on your mind?" name="content" rows="21" cols="75" style="padding: 1rem; border-radius: 0.5rem;"></textarea>
+                    <input type="hidden" name="imageUrl" id="imageUrl" value="">
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">post as anonymous?
+                        {{#if (eq account.department "CPE")}}
+                            <input type="checkbox" name="cpe" value="cpe" style="margin-top: 5px;">
+                            <p>post to CPE board</p>
+                        {{else}}
+                            <input type="checkbox" name="ddt" value="ddt" style="margin-top: 5px;">
+                            <p>post to DDT board</p>
+                        {{/if}}
+                    </div>
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+
+        </div>
+       
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEjy945SOBmXxKrGsjKD7Z_icipLO8sfI",
+            authDomain: "cdti-board.firebaseapp.com",
+            projectId: "cdti-board",
+            storageBucket: "cdti-board.appspot.com",
+            messagingSenderId: "934507286490",
+            appId: "1:934507286490:web:5b88fdab7fa87b16a4bae3",
+            measurementId: "G-0BMYRTY9VY"
+        };
+
+        firebase.initializeApp(firebaseConfig)
+
+        var fileText = document.querySelector(".fileText")
+        var fileItem;
+        var fileName;
+        var img = document.querySelector(".img")
+
+        function getfile(e){
+                fileItem = e.target.files[0];
+                fileName = fileItem.name;
+                fileText.innerHTML = fileName;
+                uploadImage()
+        } 
+
+        function uploadImage(){
+                let storageRef = firebase.storage().ref("image/" + fileName);
+                let uploadTask = storageRef.put(fileItem)
+
+                uploadTask.on("state_changed", (snapshot) => {
+                    console.log(snapshot)
+
+                }, (error) => {
+                    console.log("Error is", error)
+                }, () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+                        console.log("URL", url)
+                            document.getElementById("imageUrl").value = url
+                            document.getElementById("img").src = url
+                            document.getElementById("img").style.display = 'block'
+                            document.getElementById('plus').style.display = 'none'
+                            document.getElementById('imgUploaded').style.border = 'none'
+                    })
+                })
+        }
+
+    </script>
+    
+</body>
+</html>

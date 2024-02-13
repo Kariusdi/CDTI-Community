@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="ri-community-line"></i>
+            <span>CDTI Community Board</span>
+        </div>
+        
+
+        <ul class="navbar">
+            
+            <li>
+                <a href="/">
+                <i class="ri-home-fill"></i>
+                <span class="navtext">   Home</span>
+                </a>
+            </li>
+            {{#if (eq account.department "CPE")}}
+                <li>
+                    <a href="/CPE">
+                    <i class="ri-computer-fill"></i>
+                    <span class="navtext">   CPE</span>
+                    </a>
+                </li>
+            {{else}}
+                <li>
+                    <a href="/DDT">
+                    <i class="ri-brush-fill"></i>
+                    <span class="navtext">   DDT</span>
+                    </a>
+                </li>
+            {{/if}}
+            <li>
+                <a href="/post">
+                <i class="ri-chat-upload-fill"></i>
+                <span class="navtext">   Post</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                <i class="ri-logout-box-fill"></i>
+                <span class="navtext">   Log out</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="account">
+            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+        
+    </header>
+
+    <main>
+
+        <div class="profileBox">
+            <div class="profilepicture">
+                <img src="{{account.avatar}}" alt="">
+            </div>
+            <div class="profileinfo">
+                {{!-- <h1>Profile</h1> --}}
+                <div class="name-box">
+                    <h1>{{ account.name }}</h1>
+                    <h4 class="dpe">#{{ account.department }}</h4>
+                </div>
+                <p>{{ account.email }}</p>
+            </div>
+        </div>
+
+        
+            {{#if noblog}}
+            <div class="post-container">
+                {{#each contents_data}}
+                    <br>
+                    <div class="post-box">
+                        <div class="post-boxHeader">
+                            <div class="textHeader">
+                                <p class="name">{{postAs}}</p>
+                                {{#if (eq postTo "public")}}
+                                    <div class="as">
+                                        <i class="ri-earth-fill"></i>
+                                        <p class="role">{{postTo}}</p>
+                                    </div>
+                                {{else}}
+                                    <div class="as">
+                                        <i class="ri-user-fill"></i>
+                                        <p class="role">{{postTo}}</p>
+                                    </div>
+                                {{/if}}
+                                
+                                <p class="time">posted on  {{date}} at {{time}}</p>
+                            </div>
+                            <div class="iconHeader">
+
+                                {{!-- <button class="del-button">
+                                    <i class="ri-delete-bin-fill"></i>
+                                </button> --}}
+
+                                <form action="/edit/post/{{ ../blogid }}/{{ _id }}" method="GET">
+                                    <button type="submit"><i class="ri-edit-fill"></i></i></button>
+                                </form>    
+
+                                <form action="/deletepost/{{ ../blogid }}/{{ _id }}" method="POST">
+                                    <button class="del-button">
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+                                    {{!-- <div class="popup" id="popup-container">
+                                        <h2>Delete this post?</h2>
+                                        <p>This action will be permanetly deleted.</p>
+                                        <div class="button-container">
+                                            <button type="submit" class="delete">Delete</button>
+                                            <button type="button" class="cancel delete" onclick="cancel()">Cancel</button>
+                                        </div>
+                                    </div> --}}
+                                </form> 
+
+                            </div>
+                        </div>
+                        <p class="contents">{{content}}</p>
+                        {{#if (eq img "")}}
+                            <div class="content-img" style="height:10%">
+                                <img src="{{img}}" style="visibility: hidden;">
+                            </div>
+                        {{else}}
+                            <div class="content-img">
+                                <img src="{{img}}">
+                            </div>
+                        {{/if}}
+                        
+                        <div class="somecomments">
+                            {{#if comments}} 
+                                {{#each comments}}
+                                    <div class="each-comment">
+                                        <div class="user-comment">
+                                            <div class="avatar-comment">
+                                                <img src = "{{avatar}}">
+                                            </div>
+                                            <div class="comment-data">
+                                                <p style="font-size: 20px; font-weight: bold;">{{name}}</p>
+                                                <p style="margin-top: 7px;">{{comment}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <h3>No comments yet.</h3>  
+                            {{/if}}    
+                        </div>
+                    </div>
+                {{/each}}  
+            </div>
+            {{else}}
+                <br><br><br>
+                <h3>You haven't post anything yet, try to share something!</h3>  
+            {{/if}}
+            
+    </main>
+    
+    <script>
+        
+        function deletePopup() {
+            document.getElementById("popup-container").style.visibility = 'visible'
+        }
+
+        function cancel() {
+            document.getElementById("popup-container").style.visibility = 'hidden'
+        }
+
+    </script>
+    
+</body>
+</html>

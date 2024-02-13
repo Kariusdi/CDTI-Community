@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/post.css">
+    <title>Post page</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="ri-community-line"></i>
+            <span>CDTI Community Board</span>
+        </div>
+        
+
+        <ul class="navbar">
+            
+            <li>
+                <a href="/">
+                <i class="ri-home-fill"></i>
+                <span class="navtext">   Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chat">
+                <i class="ri-message-2-fill"></i>
+                <span class="navtext">   Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="/post">
+                <i class="ri-chat-upload-fill"></i>
+                <span class="navtext">   Post</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                <i class="ri-logout-box-fill"></i>
+                <span class="navtext">   Log out</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="account">
+            <a href="/profile/{{ userid }}" class="user"><i class="ri-account-circle-fill"></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+        
+    </header>
+
+    <main>
+        <div class="parent">
+            {{#each contents_data.blogs}}
+                <div class="container">
+                    <div class="profileBox">
+                        <div class="profilepicture">
+                            <img src="{{avatar}}" alt="">
+                        </div>
+                        <div class="profileinfo">
+                            <h1>{{ postAs }}</h1>
+                            <p>Editing blog mode</p>
+                        </div>
+
+                    </div>
+
+                    {{#if (eq img "")}}
+                        <div id="imgUploaded" style="border: none; visibility: hidden;">
+                            <img id="img" style="visibility: hidden" src="{{img}}">             
+                        </div>
+                    {{else}}
+                        <div id="imgUploaded" style="border: none;">
+                            <img id="img" style="display: block;" src="{{img}}">        
+                        </div>
+                    {{/if}}
+                    
+
+                </div>
+            {{/each}}
+                    
+            <div class="content">
+                <form action="/edited/{{ blogid }}/{{_id}}" method="post">
+                    <textarea class="blog" placeholder="What's on your mind?" name="content" rows="21" cols="75" style="padding: 1rem; border-radius: 0.5rem;">{{#each contents_data.blogs}}{{ content }}{{/each}}</textarea>
+                    <input type="hidden" name="imageUrl" id="imageUrl" value="">
+                    {{!-- <input type="checkbox" name="anonymous" value="anonymous" style="margin-top: 5px;">
+                    post as anonymous? --}}
+                    <input type="submit" value="edit">
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    {{!-- <footer>
+        <p>Please contact us 095-573-9706</p>
+    </footer> --}}
+    
+</body>
+</html>
